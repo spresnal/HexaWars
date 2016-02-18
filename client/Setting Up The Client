@@ -1,0 +1,6 @@
+Download and install npm
+Open cmd prompt and go to client directory
+> npm install angular-moment moment --save
+> npm install angular-ui-bootstrap
+To start the Server locally:
+> npm start
