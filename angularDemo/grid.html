@@ -1,4 +1,5 @@
-<html>
+<!doctype html>
+<html ng-app="myApp">
     <head>
         <meta charset="utf-8" />
         <title>Canvas Hexagonal Map</title>
@@ -10,7 +11,7 @@
             }
         </style>
     </head>
-    <body>
+    <body ng-controller="myCtrl">
         <canvas id="hexmap" width="2000" height="2000"></canvas>
         <script src="hexagons.js"></script>
     </body>
