@@ -5,8 +5,8 @@ angular.module("myApp.home").service("GameboardService", function () {
     this.initBoard = function () {
         var hexagonAngle = 0.523598776, // 30 degrees in radians
             sideLength = 30,
-            boardWidth = 27,
-            boardHeight = 17,
+            boardWidth = 50,
+            boardHeight = 50,
             hexHeight = Math.sin(hexagonAngle) * sideLength,
             hexRadius = Math.cos(hexagonAngle) * sideLength,
             hexRectangleHeight = sideLength + 2 * hexHeight,

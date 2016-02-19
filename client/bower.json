@@ -7,6 +7,10 @@
     "angular": "~1.4.0",
     "angular-route": "~1.4.0",
     "angular-loader": "~1.4.0",
-    "angular-mocks": "~1.4.0"
+    "angular-mocks": "~1.4.0",
+    "angular-panhandler": "^1.1.1"
+  },
+  "resolutions": {
+    "angular": "~1.4.0"
   }
 }
