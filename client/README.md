@@ -1,7 +1,7 @@
 ## Setting Up
 
-We also use a number of node.js tools to initialize and test angular-seed. You must have node.js and
-its package manager (npm) installed.  You can get them from [http://nodejs.org/](http://nodejs.org/).
+Start off by downloading Visual Studio 2015 (The Community Version) https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx. Download git and add it to your PATH in Environment Variables. We also use a number of node.js tools to initialize and test the project. You must have node.js and
+its package manager (npm) installed.  You can get them from [http://nodejs.org/](http://nodejs.org/). NOTE: You may also need to download Python and add it to your Environment Variables as well.
 
 
 ### Install Dependencies
