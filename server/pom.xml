@@ -1,0 +1,33 @@
+<project>
+
+  <properties>
+   <maven.compiler.source>1.8</maven.compiler.source>
+   <maven.compiler.target>1.8</maven.compiler.target>
+</properties>
+
+
+  <name>hexserv</name>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.hexserv</groupId>
+  <artifactId>hexserv</artifactId>
+  <version>0.0.0.0.1</version>
+  <dependencies>
+
+    <dependency>
+      <groupId>com.sparkjava</groupId>
+      <artifactId>spark-core</artifactId>
+      <version>2.3</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+
+    <directory>${project.basedir}/target</directory>
+    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+    <finalName>${project.artifactId}-${project.version}</finalName>
+    <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+
+  </build>
+
+</project>
