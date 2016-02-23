@@ -1,23 +1,23 @@
-﻿"use strict";
+﻿'use strict';
 
-angular.module("myApp.home").service("GameboardService", function () {
+angular.module('myApp.home').service('GameboardService', function () {
    
     this.initBoard = function () {
         var hexagonAngle = 0.523598776, // 30 degrees in radians
-            sideLength = 30,
+            sideLength = 40,
             boardWidth = 50,
             boardHeight = 50,
             hexHeight = Math.sin(hexagonAngle) * sideLength,
             hexRadius = Math.cos(hexagonAngle) * sideLength,
             hexRectangleHeight = sideLength + 2 * hexHeight,
             hexRectangleWidth = 2 * hexRadius,
-            canvas = document.getElementById("hexmap");
+            canvas = document.getElementById('hexmap');
 
         if (canvas.getContext) {
-            var ctx = canvas.getContext("2d");
+            var ctx = canvas.getContext('2d');
 
-            ctx.fillStyle = "#000000";
-            ctx.strokeStyle = "#CCCCCC";
+            ctx.fillStyle = '#000000';
+            ctx.strokeStyle = '#CCCCCC';
             ctx.lineWidth = 1;
 
             function drawHexagon (canvasContext, x, y, fill) {
@@ -57,7 +57,7 @@ angular.module("myApp.home").service("GameboardService", function () {
 
             drawBoard(ctx, boardWidth, boardHeight);
 
-            canvas.addEventListener("click", function (eventInfo) {
+            canvas.addEventListener('click', function (eventInfo) {
                 var x = eventInfo.offsetX || eventInfo.layerX,
                     y = eventInfo.offsetY || eventInfo.layerY,
                     hexY = Math.floor(y / (hexHeight + sideLength)),
@@ -70,7 +70,7 @@ angular.module("myApp.home").service("GameboardService", function () {
                 // Check if the mouse's coords are on the board
                 if (hexX >= 0 && hexX < boardWidth) {
                     if (hexY >= 0 && hexY < boardHeight) {
-                        ctx.fillStyle = "#" + Math.floor(Math.random() * 16777215).toString(16);
+                        ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
 
                         drawHexagon(ctx, screenX, screenY, true);
                     }
