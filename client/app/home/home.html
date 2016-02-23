@@ -1,3 +1,22 @@
-<div class="panhandler" id="panhandler" content-height="{{screenHeight}}" content-width="{{screenWidth}}">
-    <canvas id="hexmap" width="2000" height="2000"></canvas>
+<div style="position: relative">
+    <!--Sign in form-->
+    <form class="form-signin well centered" ng-show="!{{loggedIn}}">
+        <h2 class="form-signin-heading" style="padding-top: 0; margin-top: 0;">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+
+    <!--Wrapper for panning-->
+    <div class="panhandler" prevent-pan="{{preventPan()}}" conten content-height="{{screenHeight}}" content-width="{{screenWidth}}">
+        <!--Canvas for game board-->
+        <canvas id="hexmap" width="2000" height="2000"></canvas>
+    </div>
 </div>

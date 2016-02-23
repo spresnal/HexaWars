@@ -15,4 +15,14 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     //set board width and height for panning
     $scope.screenHeight = window.innerHeight - 90 + 'px';
     $scope.screenWidth = window.innerWidth + 'px';
+
+    $scope.loggedIn = false;
+
+    $scope.preventPan = function () {
+        if (!$scope.loggedIn) {
+            return true;
+        } else {
+            return false;
+        }
+    };
 }]);
