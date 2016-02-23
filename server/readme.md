@@ -5,3 +5,10 @@ Also, note that this runs on python2, so use `pip install -r requirements.txt` t
 Additionally, I had a HeaderParsingError thrown when running manage.py to init the database, the fix was to run `pip install --upgrade requests`
 
 -Graham
+
+Started the database, to init it do:
+```
+mysql -u root -p
+MariaDB [(none)]> CREATE DATABASE hexa;
+python manage.py create
+```
