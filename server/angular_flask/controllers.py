@@ -43,6 +43,25 @@ def rest_pages(model_name, item_id=None):
                 'angular_flask/templates/index.html').read())
     abort(404)
 
+@app.route('/populate')
+def lets_populate():
+
+    from angular_flask.models import Unit
+    from angular_flask.models import Terrain
+    from angular_flask.models import Player
+
+    a = Unit(99, 77)
+    b = Terrain(1, 3, 88, False)
+    c = Player("hello", 'hello@world.univ')
+
+    db.session.add(a)
+    db.session.add(b)
+    db.session.add(c)
+
+    db.session.commit()
+
+    return "a route must return a page..."
+
 
 # special file handlers and error handlers
 @app.route('/favicon.ico')
