@@ -9,7 +9,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     });
 }])
 
-.controller('HomeCtrl', ['$scope', 'ProfileService', 'GameboardService', function ($scope, ProfileService, GameboardService) {
+.controller('HomeCtrl', ['$scope', 'ProfileService', 'GameboardService', 'UnitCreationService', function ($scope, ProfileService, GameboardService, UnitCreationService) {
     GameboardService.initBoard();
 
     //set board width and height for panning
@@ -34,4 +34,9 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
             $scope.view = 'game';
         }
     };
-}]);
+
+    $scope.createunit = function() {
+        UnitCreationService.createUnit();
+    };
+
+    }]);
