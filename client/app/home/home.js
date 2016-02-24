@@ -9,7 +9,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     });
 }])
 
-.controller('HomeCtrl', ['$scope', '$timeout', 'GameboardService', function ($scope, $timeout, GameboardService) {
+.controller('HomeCtrl', ['$scope', 'ProfileService', 'GameboardService', function ($scope, ProfileService, GameboardService) {
     GameboardService.initBoard();
 
     //set board width and height for panning
@@ -17,12 +17,21 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     $scope.screenWidth = window.innerWidth + 'px';
 
     $scope.loggedIn = false;
+    if (!$scope.loggedIn) {
+        $scope.view = 'login';
+    }
 
-    $scope.preventPan = function () {
-        if (!$scope.loggedIn) {
-            return true;
-        } else {
-            return false;
+    $scope.login = function (username, password) {
+        if (ProfileService.login(username, password)) {
+            $scope.loggedIn = true;
+            $scope.view = 'game';
+        }
+    };
+
+    $scope.register = function (username, password) {
+        if (ProfileService.register(username, password)) {
+            $scope.loggedIn = true;
+            $scope.view = 'game';
         }
     };
 }]);
