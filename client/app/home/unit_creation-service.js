@@ -4,6 +4,8 @@ angular.module('myApp.home').service('UnitCreationService', function (GameboardS
  
     this.createUnit = function () {
         var currHexgan = GameboardService.getcurrHexagon();
+        var img = new Image();
+        img.src = "/sprites/pikeman.png";
         //swap for call to server
         console.log(currHexagon.X.toString() + ' ' + currHexagon.Y.toString());
 
