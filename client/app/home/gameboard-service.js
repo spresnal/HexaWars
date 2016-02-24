@@ -23,9 +23,15 @@ angular.module('myApp.home').service('GameboardService', function () {
         if (canvas.getContext) {
             var ctx = canvas.getContext('2d');
 
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = '#C0C0C0';
             ctx.strokeStyle = '#000000';
             ctx.lineWidth = 2;
+
+            this.drawHexagonWithUnit = function (x, y, img) {
+
+                ctx.drawImage(img, x, y);
+
+            }
 
             function drawHexagon (canvasContext, x, y, fill) {
                 fill = fill || false;
