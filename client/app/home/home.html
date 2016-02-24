@@ -30,10 +30,14 @@
         </form>
     </div>
 
-    <!--Create Unit Form-->
-    <div>
-        <button ng-click="createunit()" style="z-index:1" class="btn btn-primary createunitBtn">Create Unit</button>
-    </div>
+    <!--Create Unit Table-->
+    <table style="z-index: 1" class="create-unit" ng-show="loggedIn">
+        <tr><td><button ng-click="createunit()" class="btn btn-sq-lg btn-primary create-unit">Create Unit</button></td></tr>
+        <tr><td><button ng-click="createunit()" class="btn btn-sq-lg btn-success create-unit">Create Unit</button></td></tr>
+        <tr><td><button ng-click="createunit()" class="btn btn-sq-lg btn-info create-unit">Create Unit</button></td></tr>
+        <tr><td><button ng-click="createunit()" class="btn btn-sq-lg btn-warning create-unit">Create Unit</button></td></tr>
+        <tr><td><button ng-click="createunit()" class="btn btn-sq-lg btn-danger create-unit">Create Unit</button></td></tr>
+    </table>
 
     <!--Wrapper for panning-->
     <div class="panhandler" content-height="{{screenHeight}}" content-width="{{screenWidth}}" style="z-index:-1">
