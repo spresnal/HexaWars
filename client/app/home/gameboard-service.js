@@ -1,5 +1,7 @@
 ﻿'use strict';
 
+var currHexagon = {Y:-1, X:-1};
+
 angular.module('myApp.home').service('GameboardService', function () {
    
     this.initBoard = function () {
@@ -16,8 +18,8 @@ angular.module('myApp.home').service('GameboardService', function () {
         if (canvas.getContext) {
             var ctx = canvas.getContext('2d');
 
-            ctx.fillStyle = '#000000';
-            ctx.strokeStyle = '#CCCCCC';
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = '#000000';
             ctx.lineWidth = 1;
 
             function drawHexagon (canvasContext, x, y, fill) {
@@ -57,7 +59,45 @@ angular.module('myApp.home').service('GameboardService', function () {
 
             drawBoard(ctx, boardWidth, boardHeight);
 
-            canvas.addEventListener('click', selectHexagon-service.highlightHexagon());
+            canvas.addEventListener('click', function (eventInfo) {
+                
+                // Get the X and Y coordinates of the selected Hexagon
+                var x = eventInfo.offsetX || eventInfo.layerX,
+                    y = eventInfo.offsetY || eventInfo.layerY,
+                    hexY = Math.floor(y / (hexHeight + sideLength)),
+                    hexX = Math.floor((x - (hexY % 2) * hexRadius) / hexRectangleWidth),
+                    screenX = hexX * hexRectangleWidth + ((hexY % 2) * hexRadius),
+                    screenY = hexY * (hexHeight + sideLength);
+
+                drawBoard(ctx, boardWidth, boardHeight);
+
+                // Check if the mouse's coords are on the board
+                if (hexX >= 0 && hexX < boardWidth) {
+                    if (hexY >= 0 && hexY < boardHeight) {
+
+                        // No hexagon previously selected. Set X & Y. Highlight hexagon.
+                        if (currHexagon.X == -1 && currHexagon.Y == -1) {
+                            currHexagon.X = screenX;
+                            currHexagon.Y = screenY;
+                        }
+                        // Check if we selected the same hexagon. If we did clear it.
+                        else if (currHexagon.X == screen.X && currHexagon.Y == screen.Y) {
+                            ctx.fillStyle = '#ffffff';
+                            drawHexagon(ctx, currHexagon.X, currHexagon.Y, true);
+                        }
+                        // New Hexagon, clear the old hexagon. Then set X & Y. Highlight new hexagon.
+                        else {
+                            ctx.fillStyle = '#ffffff';
+                            drawHexagon(ctx, currHexagon.X, currHexagon.Y, true);
+                            currHexagon.X = screenX;
+                            currHexagon.Y = screenY;
+                            ctx.fillStyle = '#add8e6';
+                            drawHexagon(ctx, screenX, screenY, true);
+                        }
+                        
+                    }
+                }
+            });
         }
     }
 });
