@@ -16,7 +16,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     $scope.screenHeight = window.innerHeight - 90 + 'px';
     $scope.screenWidth = window.innerWidth + 'px';
 
-    $scope.loggedIn = false;
+    $scope.loggedIn = true;
     if (!$scope.loggedIn) {
         $scope.view = 'login';
     }
@@ -35,8 +35,8 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
         }
     };
 
-    $scope.createunit = function() {
-        UnitCreationService.createUnit();
+    $scope.createunit = function(type) {
+        UnitCreationService.createUnit(type);
     };
 
     }]);

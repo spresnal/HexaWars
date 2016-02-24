@@ -32,11 +32,42 @@
 
     <!--Create Unit Table-->
     <table style="z-index: 1" class="create-unit" ng-show="loggedIn">
-        <tr><td><button ng-click="createunit()" class="btn btn-sq-lg btn-primary create-unit">Create Unit</button></td></tr>
-        <tr><td><button ng-click="createunit()" class="btn btn-sq-lg btn-success create-unit">Create Unit</button></td></tr>
-        <tr><td><button ng-click="createunit()" class="btn btn-sq-lg btn-info create-unit">Create Unit</button></td></tr>
-        <tr><td><button ng-click="createunit()" class="btn btn-sq-lg btn-warning create-unit">Create Unit</button></td></tr>
-        <tr><td><button ng-click="createunit()" class="btn btn-sq-lg btn-danger create-unit">Create Unit</button></td></tr>
+        <tr><th>Create Units</th></tr>
+        <tr>
+            <td>
+                <button ng-click="createunit('pikeman')" class="btn btn-sq-lg btn-primary create-unit">
+                    <img src="/app/home/sprites/pikeman.png" alt="pikeman"/>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button ng-click="createunit('archer')" class="btn btn-sq-lg btn-success create-unit">
+                    <img src="/app/home/sprites/archer.png" alt="archer" />
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button ng-click="createunit('mage')" class="btn btn-sq-lg btn-info create-unit">
+                    <img src="/app/home/sprites/mage.png" alt="mage" />
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button ng-click="createunit('knight')" class="btn btn-sq-lg btn-warning create-unit">
+                    <img src="/app/home/sprites/knight.png" alt="knight" />
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button ng-click="createunit('swordsman')" class="btn btn-sq-lg btn-danger create-unit">
+                    <img src="/app/home/sprites/swordsman.png" alt="swordsman" />
+                </button>
+            </td>
+        </tr>
     </table>
 
     <!--Wrapper for panning-->

@@ -2,10 +2,10 @@
 
 angular.module('myApp.home').service('UnitCreationService', function (GameboardService) {
  
-    this.createUnit = function () {
+    this.createUnit = function (type) {
         var currHexgan = GameboardService.getcurrHexagon();
         var img = new Image();
-        img.src = "/app/home/sprites/pikeman.png";
+        img.src = '/app/home/sprites/' + type + '.png';
 
         GameboardService.drawHexagonWithUnit(currHexagon.X, currHexagon.Y, img);
 
