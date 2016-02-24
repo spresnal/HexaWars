@@ -9,7 +9,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     });
 }])
 
-.controller('HomeCtrl', ['$scope', 'ProfileService', 'GameboardService', 'UnitCreationService', function ($scope, ProfileService, GameboardService, UnitCreationService) {
+.controller('HomeCtrl', ['$scope', 'ProfileService', 'GameboardService', 'UnitService', function ($scope, ProfileService, GameboardService, UnitCreationService) {
     GameboardService.initBoard();
 
     //set board width and height for panning

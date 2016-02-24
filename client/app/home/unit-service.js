@@ -1,7 +1,9 @@
 ﻿'use strict';
 
-angular.module('myApp.home').service('UnitCreationService', function (GameboardService) {
+angular.module('myApp.home').service('UnitService', function (GameboardService) {
  
+    var currentUnits = [];
+
     this.createUnit = function (type) {
         var currHexgan = GameboardService.getcurrHexagon();
         var img = new Image();
@@ -9,10 +11,9 @@ angular.module('myApp.home').service('UnitCreationService', function (GameboardS
 
         GameboardService.drawHexagonWithUnit(currHexagon.X, currHexagon.Y, img);
 
-        //console.log(currHexagon.X.toString() + ' ' + currHexagon.Y.toString());
-
-
+        console.log(currHexagon.X.toString() + ' ' + currHexagon.Y.toString());
         return true;
     }
-    
+
+
 });
