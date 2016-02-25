@@ -56,20 +56,46 @@
 }
 
 table.create-unit {
-    border-radius: 2px;
-    border: 1px solid gray;
-    background-color: gray;
-    position: fixed !important;
-    right: 0 !important;
-    top: 28%;
-}
-
-button.create-unit {
-    width: 10px;
-    height: 10px;
+    border-collapse:separate;
+    border-radius:6px;
+    -moz-border-radius:6px;
+    border: 3px solid gray;
+    background-color: lightblue;
+    position: absolute !important;
+    right: 0;
+    top: 25%;
 }
 
 .btn-sq-lg {
   width: 85px !important;
   height: 85px !important;
+}
+
+table.resource-display {
+    pointer-events: none;
+    position: absolute !important;
+    top: 0;
+    margin-left: 36%;
+}
+
+.circleBase {
+    opacity: 0.95;
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+}
+
+.circleBase > img {
+    padding-left: 9px;
+}
+
+.circleBase > p {
+    text-align: center;
+    font-weight: bold;
+}
+
+.resource {
+    width: 85px;
+    height: 85px;
+    background: lightblue;
+    border: 3px solid gray;
 }
