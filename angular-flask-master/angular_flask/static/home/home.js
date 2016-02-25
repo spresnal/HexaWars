@@ -2,13 +2,6 @@
 
 angular.module('myApp.home', ['ngRoute', 'panhandler'])
 
-.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/home', {
-        templateUrl: 'home/home.html',
-        controller: 'HomeCtrl'
-    });
-}])
-
 .controller('HomeCtrl', ['$scope', 'ProfileService', 'GameboardService', 'UnitCreationService', function ($scope, ProfileService, GameboardService, UnitCreationService) {
     GameboardService.initBoard();
 
