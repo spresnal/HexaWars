@@ -11,7 +11,7 @@ angular.module('myApp.home').service('UnitService', function (GameboardService) 
 
         GameboardService.drawHexagonWithUnit(currHexagon.X, currHexagon.Y, img);
 
-        console.log(currHexagon.X.toString() + ' ' + currHexagon.Y.toString());
+        console.log('Clicked Hex:'+currHexagon.X.toString() + ' ' + currHexagon.Y.toString());
         return true;
     }
 

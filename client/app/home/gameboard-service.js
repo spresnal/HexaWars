@@ -22,6 +22,7 @@ angular.module('myApp.home').service('GameboardService', function () {
 
         if (canvas.getContext) {
             var ctx = canvas.getContext('2d');
+            console.log('hexRadius:' + hexRadius + ' hexRectangleWidth:' + hexRectangleWidth + ' hexHeight:' + hexHeight);
 
             //ctx.fillStyle = '#C0C0C0';
             ctx.strokeStyle = '#C0C0C0';
@@ -48,6 +49,9 @@ angular.module('myApp.home').service('GameboardService', function () {
                 canvasContext.lineTo(x, y + sideLength + hexHeight);
                 canvasContext.lineTo(x, y + hexHeight);
                 canvasContext.closePath();
+
+
+
 
                 if (fill) {
                     canvasContext.fill();
