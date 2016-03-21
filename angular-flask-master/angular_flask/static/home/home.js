@@ -10,7 +10,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     $scope.screenWidth = window.innerWidth + 'px';
 
     //----Replace with calls to server later
-    $scope.loggedIn = true;
+    $scope.loggedIn = false;
     $scope.food = 120;
     $scope.stone = 80;
     $scope.gold = 54;

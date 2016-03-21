@@ -1,27 +1,23 @@
 ﻿'use strict';
 
-angular.module('myApp.home').service('ProfileService', function () {
+angular.module('myApp.home').service('ProfileService', ['RequestService', function (RequestService) {
     var activeUsername;
 
     this.login = function (username, password) {
-        //swap for call to server
         console.log('Login attempt for: ' + username + ':' + password);
 
-        //on success
-        activeUsername = username;
-        return true;
+        var url = RequestService.buildURL('login', { username: username, password: password });
+        return RequestService.request('GET', url);
     }
 
     this.register = function (username, password) {
-        //swap for call to server
         console.log('Register attempt for: ' + username + ':' + password);
         
-        //on success
-        activeUsername = username;
-        return true;
+        var url = RequestService.buildURL('register', { username: username, password: password });
+        return RequestService.request('POST', url);
     }
 
     this.getUsername = function() {
         return activeUsername;
     }
-});
+}]);

@@ -24,6 +24,10 @@ session = api_manager.session
 def basic_pages(**kwargs):
     return make_response(open('angular_flask/static/index.html').read())
 
+@app.route('/login')
+def login():
+    return 'Logged In'
+
 
 # routing for CRUD-style endpoints
 # passes routing onto the angular frontend if the requested resource exists
