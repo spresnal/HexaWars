@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.home', ['ngRoute', 'panhandler'])
+angular.module('myApp.home', ['ngRoute', 'panhandler', 'colorpicker.module'])
 
 .controller('HomeCtrl', ['$scope', 'ProfileService', 'GameboardService', 'UnitCreationService', function ($scope, ProfileService, GameboardService, UnitCreationService) {
     GameboardService.initBoard();
