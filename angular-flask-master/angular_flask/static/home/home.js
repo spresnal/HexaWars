@@ -10,7 +10,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     $scope.screenWidth = window.innerWidth + 'px';
 
     //----Replace with calls to server later
-    $scope.loggedIn = true;
+    $scope.loggedIn = false;
     $scope.food = 120;
     $scope.stone = 80;
     $scope.gold = 54;
@@ -22,21 +22,38 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     }
 
     $scope.login = function (username, password) {
-        if (ProfileService.login(username, password)) {
-            $scope.loggedIn = true;
-            $scope.view = 'game';
-        }
+        //the function(result) passed in gets called when the http response comes back
+        ProfileService.login(username, password, function (result) {
+            /*
+             * Result contains
+             * result.success = true/false
+             * result.response = data retrieved
+             */
+
+            if (result.success) {
+                //Login succeeded
+                $scope.loggedIn = true;
+                $scope.view = 'game';
+            } else {
+                //Login failed
+                console.log('Login failed: ' + result.response.statusText);
+            }
+        });
     };
 
     $scope.register = function (username, password) {
-        if (ProfileService.register(username, password)) {
-            $scope.loggedIn = true;
-            $scope.view = 'game';
-        }
+        ProfileService.register(username, password, function (result) {
+            if (result.success) {
+                $scope.loggedIn = true;
+                $scope.view = 'game';
+            } else {
+                console.log('Register failed: ' + result.response.statusText);
+            }
+        });
     };
 
-    $scope.createunit = function(type) {
+    $scope.createunit = function (type) {
         UnitCreationService.createUnit(type);
     };
 
-    }]);
+}]);
