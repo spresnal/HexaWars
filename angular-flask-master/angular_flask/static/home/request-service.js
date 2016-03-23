@@ -33,19 +33,18 @@ angular.module('myApp.home').service('RequestService', ['$http', function ($http
      * result: object.success = true/false
      *         object.response = data
      */
-    this.request = function (method, url) {
+    this.request = function (method, url, responseHandler) {
         $http({
             method: method,
             url: url
-        }).then(function successCallback(response) {
+        }).then(function (successResult) {
             // this callback will be called asynchronously
             // when the response is available
-            console.log('success');
-            return { success: true, response: response };
-        }, function errorCallback(response) {
+            responseHandler({ success: true, response: successResult });
+        }, function (errorResult) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
-            return { success: false, response: response };
+            responseHandler({ success: false, response: errorResult });
         });
     }
 }]);
