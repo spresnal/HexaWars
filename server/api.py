@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Resource, Api
 from flask_restful import reqparse
-from flask.ext.mysql import MySQL
+from flask_mysqldb import MySQL
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -91,7 +91,6 @@ class AddItem(Resource):
             _userId = args['id']
             _item = args['item']
 
-            print _userId;
 
             conn = mysql.connect()
             cursor = conn.cursor()
