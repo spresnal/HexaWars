@@ -19,6 +19,14 @@ angular.module('myApp.home').service('ProfileService', ['RequestService', functi
         RequestService.request('POST', url, responseHandler);
     }
 
+    this.updateInfo = function (displayName, empireColor, responseHandler) {
+        console.log('Update display name: ' + displayName);
+        console.log('Update empire color: ' + empireColor); 
+
+        var url = RequestService.buildURL('register', { displayName: displayName, empireColor: empireColor });
+        RequestService.request('POST', url, responseHandler);
+    }
+
     this.getUsername = function() {
         return activeUsername;
     }

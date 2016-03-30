@@ -66,51 +66,58 @@
         <tr>
             <td>
                 <button ng-click="createunit('pikeman')" class="btn btn-sq-lg btn-primary" uib-popover="Pikeman cost and stats." popover-append-to-body="true" popover-title="Pikeman" popover-placement="left" popover-trigger="mouseenter">
-                    <img src="/static/imgs/sprites/pikeman.png" alt="pikeman"/>
+                    <img src="/static/imgs/sprites/pikeman.png" alt="pikeman" />
                 </button>
             </td>
         </tr>
         <tr>
             <td>
                 <button ng-click="createunit('archer')" class="btn btn-sq-lg btn-success" uib-popover="Archer cost and stats." popover-append-to-body="true" popover-title="Archer" popover-placement="left" popover-trigger="mouseenter">
-                    <img src="/static/imgs/sprites/archer.png" alt="archer"/>
+                    <img src="/static/imgs/sprites/archer.png" alt="archer" />
                 </button>
             </td>
         </tr>
         <tr>
             <td>
                 <button ng-click="createunit('mage')" class="btn btn-sq-lg btn-info" uib-popover="Mage cost and stats." popover-append-to-body="true" popover-title="Mage" popover-placement="left" popover-trigger="mouseenter">
-                    <img src="/static/imgs/sprites/mage.png" alt="mage"/>
+                    <img src="/static/imgs/sprites/mage.png" alt="mage" />
                 </button>
             </td>
         </tr>
         <tr>
             <td>
                 <button ng-click="createunit('knight')" class="btn btn-sq-lg btn-warning" uib-popover="Knight cost and stats." popover-append-to-body="true" popover-title="Knight" popover-placement="left" popover-trigger="mouseenter">
-                    <img src="/static/imgs/sprites/knight.png" alt="knight"/>
+                    <img src="/static/imgs/sprites/knight.png" alt="knight" />
                 </button>
             </td>
         </tr>
         <tr>
             <td>
                 <button ng-click="createunit('swordsman')" class="btn btn-sq-lg btn-danger" uib-popover="Swordsman cost and stats." popover-append-to-body="true" popover-title="Swordsman" popover-placement="left" popover-trigger="mouseenter">
-                    <img src="/static/imgs/sprites/swordsman.png" alt="swordsman"/>
+                    <img src="/static/imgs/sprites/swordsman.png" alt="swordsman" />
                 </button>
             </td>
         </tr>
     </table>
 
-    <!--Edit information-->
-    <!--Button-->
-    <button ng-click="view = 'editInfo'">Edit Player Information</button>
+    <!--User information-->
+    <!--Display-->
+    <table style="z-index: 1" class="create-unit" ng-show="loggedIn">
+        <tr><th>Display Name</th></tr>
+        <tr><td>{{displayName}}</td></tr>
+        <tr><th>Empire Color</th></tr>
+        <tr><td>{{empireColor}}</td></tr>
+        <tr><td><b>Edit Info</b></td></tr>
+    </table>
+    <button class="btn btn-sq-lg btn-primary update-info" ng-show="loggedIn" ng-click="view = 'editInfo'">Edit Player Info</button>
     <!--Selection Panel-->
     <div class="wrapper" ng-show="view === 'editInfo'" style="z-index: 1">
-        <form class="form-signin well well-sm centered" name="editInfoForm" ng-submit="editInfoForm.$valid && editInfoForm(displayName, empireColor)" novalidate>
+        <form class="form-signin well well-sm centered" name="editInfoForm" ng-submit="editInfoForm.$valid && updateInfo(displayName, empireColor)" novalidate>
             <h2 class="form-signin-heading" style="padding-top: 0; margin-top: 0;">Edit Information</h2>
             <label for="displayName" class="sr-only">Display name</label>
             <input type="text" id="displayName" ng-model="displayName" class="form-control" placeholder="Display name" required autofocus>
             <label for="empireColor" class="sr-only">Empire Color</label>
-            <input colorpicker colorpicker-position="right" type="text" id="empireColor" ng-model="empireColor" class="span2" placeholder="Empire color" required>
+            <div id="empireColor" k-opacity="true"></div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
             <button class="btn btn-lg btn-default btn-block" type="button" ng-click="view = 'game'">Cancel</button>
         </form>

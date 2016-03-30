@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.home', ['ngRoute', 'panhandler', 'colorpicker.module'])
+angular.module('myApp.home', ['ngRoute', 'panhandler'])
 
 .controller('HomeCtrl', ['$scope', 'ProfileService', 'GameboardService', 'UnitCreationService', function ($scope, ProfileService, GameboardService, UnitCreationService) {
     GameboardService.initBoard();
@@ -10,7 +10,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler', 'colorpicker.module'])
     $scope.screenWidth = window.innerWidth + 'px';
 
     //----Replace with calls to server later
-    $scope.loggedIn = false;
+    $scope.loggedIn = true;
     $scope.food = 120;
     $scope.stone = 80;
     $scope.gold = 54;
@@ -18,8 +18,14 @@ angular.module('myApp.home', ['ngRoute', 'panhandler', 'colorpicker.module'])
     //----
 
     if (!$scope.loggedIn) {
-        $scope.view = 'login';
+        $scope.view = 'game';
     }
+
+    //initialize kendo color picker
+    $('#empireColor').kendoColorPalette({
+        palette: 'basic',
+        tileSize: 32
+    });
 
     $scope.login = function (username, password) {
         //the function(result) passed in gets called when the http response comes back
@@ -56,4 +62,18 @@ angular.module('myApp.home', ['ngRoute', 'panhandler', 'colorpicker.module'])
         UnitCreationService.createUnit(type);
     };
 
+    $scope.updateInfo = function (displayName) {
+        $scope.empireColor = $('#empireColor').data('kendoColorPalette').value();
+        //empireColor retrieved as hash (ex: #3f48cc) the '#' must be stripped before sending a post request
+        ProfileService.updateInfo(displayName, $scope.empireColor.slice(1, empireColor.length), function (result) {
+            if (result.success) {
+                console.log('Info Updated');
+                $scope.view = 'game';
+            } else {
+                console.log('Info Update Failed');
+                //Remove this after server added
+                $scope.view = 'game';
+            }
+        })
+    };
 }]);

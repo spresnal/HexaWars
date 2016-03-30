@@ -42,7 +42,7 @@
 
 .wrapper {
     height: 0;
-    position: fixed;
+    position: absolute;
     left: 50%;
     top: 50%;
 }
@@ -53,6 +53,13 @@
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+
+button.update-info {
+    position: absolute !important;
+    right: 0;
+    top: 0;
+    z-index: 1;
 }
 
 table.create-unit {
@@ -75,7 +82,7 @@ table.resource-display {
     pointer-events: none;
     position: absolute !important;
     top: 0;
-    margin-left: 35%;
+    margin-left: 39%;
 }
 
 .circleBase {
