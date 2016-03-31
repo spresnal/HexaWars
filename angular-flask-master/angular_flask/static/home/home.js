@@ -11,10 +11,10 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
 
     //----Replace with calls to server later
     $scope.loggedIn = false;
-    $scope.food = 120;
-    $scope.stone = 80;
-    $scope.gold = 54;
-    $scope.wood = 49;
+    $scope.food = 100;
+    $scope.stone = 20;
+    $scope.gold = 20;
+    $scope.wood = 20;
     //----
 
     if (!$scope.loggedIn) {
@@ -53,7 +53,48 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     };
 
     $scope.createunit = function (type) {
-        UnitService.createUnit(type);
+      
+        // Costs 2 gold, 2 steel
+        if (type == 'pikeman' || type == 'knight' || type == 'swordsman') {
+            if ($scope.gold > 2 && $scope.stone > 2) {
+                UnitService.createUnit(type);
+
+                setTimeout(function () {
+                    $scope.$apply(function () {
+                        $scope.gold = $scope.gold - 2;
+                        $scope.stone = $scope.stone - 2;
+                    }, 1000);
+                });
+            }
+        }
+        // Costs 5 gold
+        else if (type == 'mage') {
+            if ($scope.gold > 5) {
+                UnitService.createUnit(type);
+
+                setTimeout(function () {
+                    $scope.$apply(function () {
+                        $scope.gold = $scope.gold - 5;
+                    }, 1000);
+                });
+            }
+        }
+        // Costs 1 gold, 1 wood
+        else if (type == 'archer') {
+            if ($scope.gold > 1 && $scope.wood > 1) {
+                UnitService.createUnit(type);
+
+                setTimeout(function () {
+                    $scope.$apply(function () {
+                        $scope.gold = $scope.gold - 1;
+                        $scope.wood = $scope.wood - 1;
+                    }, 1000);
+                });
+            }
+        }
+ 
+
     };
+
 
 }]);
