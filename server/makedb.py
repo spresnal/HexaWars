@@ -13,10 +13,7 @@ mysql.init_app(app)
 
 # IMPORTANT before running:
 #   - setup mysql user info above
-#   - run
-#       mysql -u root -p
-#       create database hexa;
-
+#   -
 
 with app.app_context():
     db = mysql.connection
