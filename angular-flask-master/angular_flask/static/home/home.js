@@ -29,7 +29,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     };
 
     $scope.createunit = function(type) {
-        UnitCreationService.createUnit(type);
+        UnitService.createUnit(type);
     };
 
     }]);
