@@ -17,6 +17,7 @@
   },
   "resolutions": {
     "angular": "~1.4.0",
-    "moment": "^2.11.2"
+    "moment": "^2.11.2",
+    "bootstrap": "~2.3.2"
   }
 }
