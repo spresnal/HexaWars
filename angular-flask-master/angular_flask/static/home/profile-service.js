@@ -23,7 +23,7 @@ angular.module('myApp.home').service('ProfileService', ['RequestService', functi
         console.log('Update display name: ' + displayName);
         console.log('Update empire color: ' + empireColor); 
 
-        var url = RequestService.buildURL('register', { displayName: displayName, empireColor: empireColor });
+        var url = RequestService.buildURL('updateInfo', { displayName: displayName, empireColor: empireColor });
         RequestService.request('POST', url, responseHandler);
     }
 

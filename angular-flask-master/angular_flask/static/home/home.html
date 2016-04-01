@@ -101,14 +101,6 @@
     </table>
 
     <!--User information-->
-    <!--Display-->
-    <table style="z-index: 1" class="create-unit" ng-show="loggedIn">
-        <tr><th>Display Name</th></tr>
-        <tr><td>{{displayName}}</td></tr>
-        <tr><th>Empire Color</th></tr>
-        <tr><td>{{empireColor}}</td></tr>
-        <tr><td><b>Edit Info</b></td></tr>
-    </table>
     <button class="btn btn-sq-lg btn-primary update-info" ng-show="loggedIn" ng-click="view = 'editInfo'">Edit Player Info</button>
     <!--Selection Panel-->
     <div class="wrapper" ng-show="view === 'editInfo'" style="z-index: 1">

@@ -11,6 +11,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
 
     //----Replace with calls to server later
     $scope.loggedIn = true;
+    $scope.displayName = 'Sam\'s Empire';
     $scope.food = 120;
     $scope.stone = 80;
     $scope.gold = 54;
