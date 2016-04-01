@@ -33,9 +33,9 @@ def newlogin():
      if request.method == 'POST':
           if len(request.args) == 4:
                email = request.args.get('email', '')
-               password = request.args.get('password')
-               firstName = request.args.get('firstName')
-               lastName = request.args.get('lastName')
+               password = request.args.get('password','')
+               firstName = request.args.get('firstName','')
+               lastName = request.args.get('lastName','')
                conn = mysql.connection
                cur = conn.cursor()
                try:
@@ -53,6 +53,32 @@ def newlogin():
                return 'Not enough arguments' 
      else:
           return 'Waiting for new login'
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+     if request.method == 'POST':
+          if len(request.args) == 2:
+               password = request.args.get('password','')
+               email = request.args.get('email', '')
+               conn = mysql.connection
+               cur = conn.cursor()
+               try:
+                    query = ("Select * from user where email = %s and password = %s")
+                    data = (email,password,)
+                    cur.execute(query,data)
+                    if cur.rowcount == 0:   
+                         returnmsg = "No such users registered"
+                    else:
+                         returnmsg = " success" 
+               except MySQLdb.IntegrityError as err:
+                    returnmsg = "Registration Error: " + format(err)
+               finally:
+                    cur.close()
+               return returnmsg  
+          else:
+               return 'Invalid args length'
+     else:
+          return 'waiting'
 
 class World(Resource):
      def get(self):
