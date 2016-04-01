@@ -1,25 +1,62 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_restful import reqparse
-from flask_mysqldb import MySQL
+from flask_mysqldb import MySQL,MySQLdb
 
 mysql = MySQL()
 app = Flask(__name__)
 
 # MySQL configurations
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
-app.config['MYSQL_DATABASE_DB'] = 'ItemListDb'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'password'
+app.config['MYSQL_DB'] = 'hexa'
+app.config['MYSQL_HOST'] = 'localhost'
 
 mysql.init_app(app)
 
 api = Api(app)
 
-class World(Resource):
-    def get(self):
+@app.route('/')
+def hello_world():
+     return 'Welcome to HexaWars!' # return more world json here...
 
-        return {'status': 'sucess'} # return more world json here...
+@app.route('/World', methods=['GET', 'POST'])
+def hello_world1():
+     if request.method == 'POST':
+          f = request.args.get('key','')
+          return 'Welcome to World of HexaWars!' + f # return more world json here...
+     else: 
+          return 'Not a good request'
+
+@app.route('/newlogin', methods=['GET', 'POST'])
+def newlogin():
+     if request.method == 'POST':
+          if len(request.args) == 4:
+               email = request.args.get('email', '')
+               password = request.args.get('password')
+               firstName = request.args.get('firstName')
+               lastName = request.args.get('lastName')
+               conn = mysql.connection
+               cur = conn.cursor()
+               try:
+                    ins_stat = "INSERT INTO user (firstName, lastName, email, password) VALUES (%s,%s,%s,%s);"
+                    data = (firstName, lastName, email, password)
+                    cur.execute(ins_stat,data)
+                    conn.commit()
+                    returnmsg = 'Registered Successfuly!'
+               except MySQLdb.IntegrityError as err:
+                    returnmsg = "Registration Error: " + format(err)
+               finally:
+                    cur.close()
+               return returnmsg 
+          else: 
+               return 'Not enough arguments' 
+     else:
+          return 'Waiting for new login'
+
+class World(Resource):
+     def get(self):
+          return {'status': 'sucess'} # return more world json here...
 
 
 class AuthenticateUser(Resource):

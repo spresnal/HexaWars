@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL
 app = Flask(__name__)
 
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'hexa'
 app.config['MYSQL_HOST'] = 'localhost'
 
@@ -38,7 +38,16 @@ with app.app_context():
             type INT
             );
     ''')
-
+    print("-users")
+    cur.execute('''
+          CREATE TABLE user(
+            firstName VARCHAR(255),
+            lastName VARCHAR(255),
+            email VARCHAR(255) NOT NULL UNIQUE,
+            password VARCHAR(255),
+            userID INT AUTO_INCREMENT PRIMARY KEY 
+          );
+    ''')
 
     print("=== populate tables with dummy data")
     print("-tile")
