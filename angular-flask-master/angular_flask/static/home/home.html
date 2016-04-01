@@ -40,19 +40,19 @@
                 </div>
             </td>
             <td>
-                <div class="circleBase resource">
+                <div class="circleBase resource" >
                     <img src="/static/imgs/resources/food.png" height="60" width="60" alt="food" />
                     <p>{{food}}</p>
                 </div>
             </td>
             <td>
-                <div class="circleBase resource">
+                <div class="circleBase resource" >
                     <img src="/static/imgs/resources/wood.png" height="60" width="60" alt="wood" />
                     <p>{{wood}}</p>
                 </div>
             </td>
             <td>
-                <div class="circleBase resource">
+                <div class="circleBase resource" >
                     <img src="/static/imgs/resources/stone.png" height="60" width="60" alt="stone" />
                     <p> {{stone}}</p>
                 </div>
@@ -65,36 +65,36 @@
         <tr><th>Create Units</th></tr>
         <tr>
             <td>
-                <button ng-click="createunit('pikeman')" class="btn btn-sq-lg btn-primary" uib-popover="Pikeman cost and stats." popover-append-to-body="true" popover-title="Pikeman" popover-placement="left" popover-trigger="mouseenter">
-                    <img src="/static/imgs/sprites/pikeman.png" alt="pikeman" />
+                <button ng-click="createunit('pikeman')" ng-disabled="gold < 2 || stone < 2" class=" btn btn-sq-lg btn-primary" uib-popover="Cost: 2 Gold, 2 Stone." popover-append-to-body="true" popover-title="Pikeman" popover-placement="left" popover-trigger="mouseenter">
+                    <img src="/static/imgs/sprites/pikeman.png" alt="pikeman"/>
                 </button>
             </td>
         </tr>
         <tr>
             <td>
-                <button ng-click="createunit('archer')" class="btn btn-sq-lg btn-success" uib-popover="Archer cost and stats." popover-append-to-body="true" popover-title="Archer" popover-placement="left" popover-trigger="mouseenter">
-                    <img src="/static/imgs/sprites/archer.png" alt="archer" />
+                <button ng-click="createunit('archer')" ng-disabled="gold < 1 || stone < 1" class="btn btn-sq-lg btn-success" uib-popover="Cost: 1 Gold, 1 Wood." popover-append-to-body="true" popover-title="Archer" popover-placement="left" popover-trigger="mouseenter">
+                    <img src="/static/imgs/sprites/archer.png" alt="archer"/>
                 </button>
             </td>
         </tr>
         <tr>
             <td>
-                <button ng-click="createunit('mage')" class="btn btn-sq-lg btn-info" uib-popover="Mage cost and stats." popover-append-to-body="true" popover-title="Mage" popover-placement="left" popover-trigger="mouseenter">
-                    <img src="/static/imgs/sprites/mage.png" alt="mage" />
+                <button ng-click="createunit('mage')" ng-disabled="gold < 5" class="btn btn-sq-lg btn-info" uib-popover="Cost: 5 Gold." popover-append-to-body="true" popover-title="Mage" popover-placement="left" popover-trigger="mouseenter">
+                    <img src="/static/imgs/sprites/mage.png" alt="mage"/>
                 </button>
             </td>
         </tr>
         <tr>
             <td>
-                <button ng-click="createunit('knight')" class="btn btn-sq-lg btn-warning" uib-popover="Knight cost and stats." popover-append-to-body="true" popover-title="Knight" popover-placement="left" popover-trigger="mouseenter">
-                    <img src="/static/imgs/sprites/knight.png" alt="knight" />
+                <button ng-click="createunit('knight')" ng-disabled="gold < 2 || stone < 2" class="btn btn-sq-lg btn-warning" uib-popover="Cost: 2 Gold, 2 Stone." popover-append-to-body="true" popover-title="Knight" popover-placement="left" popover-trigger="mouseenter">
+                    <img src="/static/imgs/sprites/knight.png" alt="knight"/>
                 </button>
             </td>
         </tr>
         <tr>
             <td>
-                <button ng-click="createunit('swordsman')" class="btn btn-sq-lg btn-danger" uib-popover="Swordsman cost and stats." popover-append-to-body="true" popover-title="Swordsman" popover-placement="left" popover-trigger="mouseenter">
-                    <img src="/static/imgs/sprites/swordsman.png" alt="swordsman" />
+                <button ng-click="createunit('swordsman')" ng-disabled="gold < 2 || stone < 2" class="btn btn-sq-lg btn-danger" uib-popover="Cost: 2 Gold, 2 Stone." popover-append-to-body="true" popover-title="Swordsman" popover-placement="left" popover-trigger="mouseenter">
+                    <img src="/static/imgs/sprites/swordsman.png" alt="swordsman"/>
                 </button>
             </td>
         </tr>

@@ -11,7 +11,7 @@ angular.module('myApp.home').service('GameboardService', function () {
 
     this.initBoard = function () {
         var hexagonAngle = 0.523598776, // 30 degrees in radians
-            sideLength = 40,
+            sideLength = 55,
             boardWidth = 50,
             boardHeight = 50,
             hexHeight = Math.sin(hexagonAngle) * sideLength,
@@ -23,13 +23,19 @@ angular.module('myApp.home').service('GameboardService', function () {
         if (canvas.getContext) {
             var ctx = canvas.getContext('2d');
 
-            ctx.fillStyle = '#C0C0C0';
-            ctx.strokeStyle = '#000000';
+            //ctx.fillStyle = '#C0C0C0';
+            ctx.strokeStyle = '#C0C0C0';
             ctx.lineWidth = 2;
+
+            // Fills in the hexagons
+            //drawBoard(ctx, boardWidth, boardHeight, true);
+
+            // Outline the board
+            drawBoard(ctx, boardWidth, boardHeight, false);
 
             this.drawHexagonWithUnit = function (x, y, img) {
 
-                ctx.drawImage(img, x, y);
+                ctx.drawImage(img, x+30, y+30);
 
             }
 
@@ -52,7 +58,7 @@ angular.module('myApp.home').service('GameboardService', function () {
                 }
             }
 
-            function drawBoard(canvasContext, width, height) {
+            function drawBoard(canvasContext, width, height, fill) {
                 var i,
                     j;
 
@@ -62,7 +68,7 @@ angular.module('myApp.home').service('GameboardService', function () {
                             ctx,
                             i * hexRectangleWidth + ((j % 2) * hexRadius),
                             j * (sideLength + hexHeight),
-                            false
+                            fill
                         );
                     }
                 }
@@ -80,7 +86,7 @@ angular.module('myApp.home').service('GameboardService', function () {
                     screenX = hexX * hexRectangleWidth + ((hexY % 2) * hexRadius),
                     screenY = hexY * (hexHeight + sideLength);
 
-                ctx.strokeStyle = '#000000';
+                ctx.strokeStyle = '#C0C0C0';
                 ctx.lineWidth = 2;
 
                 drawBoard(ctx, boardWidth, boardHeight);
@@ -99,13 +105,13 @@ angular.module('myApp.home').service('GameboardService', function () {
                         }
                         // Check if we selected the same hexagon. If we did clear it.
                         else if (currHexagon.X == screen.X && currHexagon.Y == screen.Y) {
-                            ctx.strokeStyle = '#000000';
+                            ctx.strokeStyle = '#C0C0C0';
                             ctx.lineWidth = 2;
                             drawHexagon(ctx, currHexagon.X, currHexagon.Y, false);
                         }
                         // New Hexagon, clear the old hexagon. Then set X & Y. Highlight new hexagon.
                         else {
-                            ctx.strokeStyle = '#000000';
+                            ctx.strokeStyle = '#C0C0C0';
                             ctx.lineWidth = 2;
                             drawHexagon(ctx, currHexagon.X, currHexagon.Y, false);
                             currHexagon.X = screenX;
