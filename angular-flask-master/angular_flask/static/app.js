@@ -6,7 +6,7 @@ angular.module('myApp', [
   'ui.bootstrap',
   'angularMoment',
   'myApp.home',
-  'myApp.view2',
+  'myApp.leaderboards',
   'myApp.version'
 ]).
 config(['$routeProvider', function($routeProvider) {
@@ -15,9 +15,9 @@ config(['$routeProvider', function($routeProvider) {
             templateUrl: '/static/home/home.html',
             controller: 'HomeCtrl'
         })
-        .when('/view2', {
-            templateUrl: '/static/view2/view2.html',
-            controller: 'View2Ctrl'
+        .when('/leaderboards', {
+            templateUrl: '/static/leaderboards/leaderboards.html',
+            controller: 'LeaderboardsCtrl'
         })
         .otherwise({ redirectTo: '/home' });
 }]);

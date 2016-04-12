@@ -85,6 +85,10 @@ table.resource-display {
     margin-left: 39%;
 }
 
+.oddRow {
+    background-color: #dddddd;
+}
+
 .circleBase {
     opacity: 0.95;
     border-radius: 50%;

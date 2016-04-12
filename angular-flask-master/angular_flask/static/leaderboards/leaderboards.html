@@ -1,0 +1,12 @@
+<table style="width:100%">
+	<tr>
+		<td style="padding-left: 30px"><h4>Rank</h4></td>
+		<td><h4>Unit Count</h4></td>
+		<td><h4>Conquered Hexes</h4></td>
+	</tr>
+	<tr ng-repeat="leader in leaders" ng-class="{oddRow: $index % 2 == 0}">
+		<td style="padding-left: 30px"><h4>{{$index + 1}}: {{leader.displayName}}</h4></td>
+		<td><h4>{{leader.unitCount}}</h4></td>
+		<td><h4>{{leader.hexesConquered}}</h4></td>
+	</tr>
+</table>

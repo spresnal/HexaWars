@@ -101,7 +101,7 @@
     </table>
 
     <!--User information-->
-    <button class="btn btn-sq-lg btn-primary update-info" ng-show="loggedIn" ng-click="view = 'editInfo'">Edit Player Info</button>
+    <button class="btn btn-sq-lg update-info" ng-show="loggedIn" ng-click="view = 'editInfo'"><img src="/static/imgs/misc/edit.png" alt="edit player info"/></button>
     <!--Selection Panel-->
     <div class="wrapper" ng-show="view === 'editInfo'" style="z-index: 1">
         <form class="form-signin well well-sm centered" name="editInfoForm" ng-submit="editInfoForm.$valid && updateInfo(displayName, empireColor)" novalidate>
