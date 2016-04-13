@@ -1,2 +1,11 @@
 *.pyc
+venv
+*~
 .DS_Store
+ignore
+logs/*
+!.gitkeep
+node_modules/
+bower_components/
+tmp
+.idea
