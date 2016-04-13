@@ -99,7 +99,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
                 });
             }
         }
- 
+
 
     };
 

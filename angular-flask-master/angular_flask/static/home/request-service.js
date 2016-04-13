@@ -5,7 +5,7 @@ angular.module('myApp.home').service('RequestService', ['$http', function ($http
      * Example
      * type: login
      * parameters: {username: user1, password: pass1}
-     * 
+     *
      * result: /login?username=user1&password=pass1
      */
     this.buildURL = function (type, parameters) {
@@ -29,7 +29,7 @@ angular.module('myApp.home').service('RequestService', ['$http', function ($http
      * Example
      * method: GET
      * url: pass in built url
-     * 
+     *
      * result: object.success = true/false
      *         object.response = data
      */

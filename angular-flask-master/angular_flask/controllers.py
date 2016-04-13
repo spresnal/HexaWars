@@ -20,13 +20,17 @@ session = api_manager.session
 # routing for basic pages (pass routing onto the Angular app)
 @app.route('/')
 @app.route('/home')
-@app.route('/view2')
 def basic_pages(**kwargs):
     return make_response(open('angular_flask/static/index.html').read())
 
 @app.route('/login')
 def login():
     return 'Logged In'
+
+@app.route('/made_player', methods=['POST'])
+def made_player():
+    print("made_player")
+    return 'made_player'
 
 
 # routing for CRUD-style endpoints
