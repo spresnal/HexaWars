@@ -32,6 +32,17 @@ def made_player():
     print("made_player")
     return 'made_player'
 
+@app.route('/get_grid', methods=['GET'])
+def get_grid():
+    from random import randint
+
+    json = []
+
+    for x in range(100):
+        for y in range(100):
+            json += [{"x":x, "y":y, "type":randint(0,5)}]
+
+    return json
 
 # routing for CRUD-style endpoints
 # passes routing onto the angular frontend if the requested resource exists
