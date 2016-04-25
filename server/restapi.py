@@ -3,15 +3,14 @@ from flask_restful import Resource, Api
 from flask_restful import reqparse
 from flask_mysqldb import MySQL,MySQLdb
 
-mysql = MySQL()
 app = Flask(__name__)
 
-# MySQL configurations
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'password'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'hexa'
 app.config['MYSQL_HOST'] = 'localhost'
 
+mysql = MySQL()
 mysql.init_app(app)
 
 api = Api(app)
@@ -188,15 +187,27 @@ class CreateUser(Resource):
                 return {'StatusCode':'200','Message': 'User creation success'}
             else:
                 return {'StatusCode':'1000','Message': str(data[0])}
+                                                                 
+            except Exception as e:
+                return {'error': str(e)}
 
-        except Exception as e:
-            return {'error': str(e)}
+class get_grid(Resource):
+    def get(self):
+        from random import randint
+
+        json = []
+        for x in range(100):
+            for y in range(100):
+                json += [{"x":x, "y":y, "type":randint(0,5)}]
+
+        return json
 
 api.add_resource(World, '/world')
 api.add_resource(CreateUser, '/CreateUser')
 api.add_resource(AuthenticateUser, '/AuthenticateUser')
 api.add_resource(AddItem, '/AddItem')
 api.add_resource(GetAllItems, '/GetAllItems')
+api.add_resource(get_grid, '/get_grid')
 
 if __name__ == '__main__':
     app.run(debug=True)
