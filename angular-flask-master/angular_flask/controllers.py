@@ -32,7 +32,7 @@ def made_player():
     print("made_player")
     return 'made_player'
 
-@app.route('/get_grid', methods=['GET'])
+@app.route('/get_grid', methods=['POST'])
 def get_grid():
     from random import randint
 
