@@ -4,7 +4,7 @@ var currHexagon = {Y:-1, X:-1};
 
 
 
-angular.module('myApp.home').service('GameboardService', function () {
+angular.module('myApp.home').service('GameboardService', function (RequestService) {
     this.getcurrHexagon = function() {
         return currHexagon;
     }
@@ -51,33 +51,68 @@ angular.module('myApp.home').service('GameboardService', function () {
                 canvasContext.lineTo(x, y + hexHeight);
                 canvasContext.closePath();
 
-                if (fill) {
+                // if (fill) {
                     canvasContext.fill();
-                } else {
+                // } else {
                     canvasContext.stroke();
-                }
+                // }
             }
 
             function drawBoard(canvasContext, width, height, fill) {
-                var i,
-                    j;
+                var i, j;
+                var board;
+                var url = RequestService.buildURL('get_grid', { test: "test1" });
+                RequestService.request('POST', url, function( data ){
+                  board = data.response.data;
 
+                  for(i=0;i<board.length;i++){
+                      canvasContext.fillStyle = '#FFFFFF';
+                      switch(board[i].type){
+                          case 1:
+                              canvasContext.fillStyle = '#33cc33';
+                              break;
+                          case 2:
+                              canvasContext.fillStyle = '#ffff00';
+                              break;
+                          case 3:
+                              canvasContext.fillStyle = '#663300';
+                              break;
+                          case 4:
+                              canvasContext.fillStyle = '#0000ff';
+                              break;
+                          case 5:
+                              canvasContext.fillStyle = '#ff0000';
+                              break;
+                      }
+
+                      drawHexagon(
+                          ctx,
+                          board[i].x * hexRectangleWidth + ((board[i].y % 2) * hexRadius),
+                          board[i].y * (sideLength + hexHeight),
+                          true
+                      );
+                  }
+                  canvasContext.fillStyle = '#FFFFFF';
+
+                });
+                /*
                 for (i = 0; i < width; ++i) {
                     for (j = 0; j < height; ++j) {
                         drawHexagon(
                             ctx,
-                            i * hexRectangleWidth + ((j % 2) * hexRadius),
-                            j * (sideLength + hexHeight),
+                            jboard.x * hexRectangleWidth + ((j % 2) * hexRadius),
+                            jboard.y * (sideLength + hexHeight),
                             fill
                         );
                     }
                 }
+                */
             }
 
             drawBoard(ctx, boardWidth, boardHeight);
 
             canvas.addEventListener('click', function (eventInfo) {
-                
+
                 // Get the X and Y coordinates of the selected Hexagon
                 var x = eventInfo.offsetX || eventInfo.layerX,
                     y = eventInfo.offsetY || eventInfo.layerY,
@@ -120,7 +155,7 @@ angular.module('myApp.home').service('GameboardService', function () {
                             ctx.lineWidth = 2;
                             drawHexagon(ctx, screenX, screenY, false);
                         }
-                        
+
                     }
                 }
             });

@@ -30,19 +30,20 @@ def login():
 @app.route('/made_player', methods=['POST'])
 def made_player():
     print("made_player")
-    return 'made_player'
+    return "made_player"
 
 @app.route('/get_grid', methods=['POST'])
 def get_grid():
     from random import randint
+    import json
 
-    json = []
+    b = []
 
     for x in range(100):
         for y in range(100):
-            json += [{"x":x, "y":y, "type":randint(0,5)}]
+            b += [{"x":x, "y":y, "type":randint(1,5)}]
 
-    return json
+    return json.dumps(b)
 
 # routing for CRUD-style endpoints
 # passes routing onto the angular frontend if the requested resource exists
