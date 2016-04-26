@@ -1,0 +1,50 @@
+'use strict';
+
+angular.module('myApp.leaderboards', ['ngRoute'])
+
+.controller('LeaderboardsCtrl', ['$scope', function ($scope) {
+    $scope.leaders = [
+        { displayName: 'Grandine', unitCount: 293, hexesConquered: 109 },
+        { displayName: 'Yawar', unitCount: 248, hexesConquered: 54 },
+        { displayName: 'Zyzzy', unitCount: 238, hexesConquered: 56 },
+        { displayName: 'iAnnihilate', unitCount: 210, hexesConquered: 77 },
+        { displayName: 'Lotusbby', unitCount: 180, hexesConquered: 34 },
+        { displayName: 'Liar Mask', unitCount: 158, hexesConquered: 31 },
+        { displayName: 'Pandaego', unitCount: 147, hexesConquered: 53 },
+        { displayName: 'Grind', unitCount: 129, hexesConquered: 34 },
+        { displayName: 'YJes', unitCount: 103, hexesConquered: 45 },
+        { displayName: 'Godzhand', unitCount: 97, hexesConquered: 34 },
+        { displayName: 'Bian', unitCount: 78, hexesConquered: 99 },
+        { displayName: 'Atreides', unitCount: 66, hexesConquered: 34 },
+        { displayName: 'Frempo', unitCount: 43, hexesConquered: 12 },
+        { displayName: 'Atreides', unitCount: 28, hexesConquered: 25 },
+        { displayName: 'Frempo', unitCount: 19, hexesConquered: 21 },
+                { displayName: 'Bian', unitCount: 78, hexesConquered: 99 },
+        { displayName: 'Atreides', unitCount: 66, hexesConquered: 34 },
+        { displayName: 'Frempo', unitCount: 43, hexesConquered: 12 },
+        { displayName: 'Atreides', unitCount: 28, hexesConquered: 25 },
+        { displayName: 'Frempo', unitCount: 19, hexesConquered: 21 },
+                { displayName: 'Bian', unitCount: 78, hexesConquered: 99 },
+        { displayName: 'Atreides', unitCount: 66, hexesConquered: 34 },
+        { displayName: 'Frempo', unitCount: 43, hexesConquered: 12 },
+        { displayName: 'Atreides', unitCount: 28, hexesConquered: 25 },
+        { displayName: 'Frempo', unitCount: 19, hexesConquered: 21 },
+                { displayName: 'Bian', unitCount: 78, hexesConquered: 99 },
+        { displayName: 'Atreides', unitCount: 66, hexesConquered: 34 },
+        { displayName: 'Frempo', unitCount: 43, hexesConquered: 12 },
+        { displayName: 'Atreides', unitCount: 28, hexesConquered: 25 },
+        { displayName: 'Frempo', unitCount: 19, hexesConquered: 21 },
+                { displayName: 'Frempo', unitCount: 43, hexesConquered: 12 },
+        { displayName: 'Atreides', unitCount: 28, hexesConquered: 25 },
+        { displayName: 'Frempo', unitCount: 19, hexesConquered: 21 },
+                { displayName: 'Bian', unitCount: 78, hexesConquered: 99 },
+        { displayName: 'Atreides', unitCount: 66, hexesConquered: 34 },
+        { displayName: 'Frempo', unitCount: 43, hexesConquered: 12 },
+        { displayName: 'Atreides', unitCount: 28, hexesConquered: 25 },
+        { displayName: 'Frempo', unitCount: 19, hexesConquered: 21 },
+                { displayName: 'Bian', unitCount: 78, hexesConquered: 99 },
+        { displayName: 'Atreides', unitCount: 66, hexesConquered: 34 },
+        { displayName: 'Frempo', unitCount: 43, hexesConquered: 12 },
+        { displayName: 'Atreides', unitCount: 28, hexesConquered: 25 }
+    ];
+}]);
