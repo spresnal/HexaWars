@@ -1,6 +1,9 @@
+Things you need: Git (added to path) and Node.js
+
 ## How to Get Started
 
 1. install python
+Note: Make sure to check off the 'Add python to path' option
 
 2. install all necessary packages
 > pip install -r requirements.txt
