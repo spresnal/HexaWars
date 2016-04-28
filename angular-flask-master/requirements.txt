@@ -1,4 +1,6 @@
 Flask==0.10.1
+Flask-SocketIO==1.0
+eventlet==0.17.4
 Flask-Restless==0.13.1
 Flask-SQLAlchemy==0.16
 Jinja2==2.7
