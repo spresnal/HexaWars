@@ -31,7 +31,7 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
             //drawBoard(ctx, boardWidth, boardHeight, true);
 
             // Outline the board
-            drawBoard(ctx, boardWidth, boardHeight, false);
+            drawBoardInit(ctx, boardWidth, boardHeight, false);
 
             this.drawHexagonWithUnit = function (x, y, img) {
 
@@ -40,7 +40,7 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
             }
 
             function drawHexagon (canvasContext, x, y, fill) {
-                fill = fill || false;
+               // fill = fill || false;
 
                 canvasContext.beginPath();
                 canvasContext.moveTo(x + hexRadius, y);
@@ -51,14 +51,14 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                 canvasContext.lineTo(x, y + hexHeight);
                 canvasContext.closePath();
 
-                // if (fill) {
+                if (fill) {
                     canvasContext.fill();
-                // } else {
+                } else {
                     canvasContext.stroke();
-                // }
+                }
             }
 
-            function drawBoard(canvasContext, width, height, fill) {
+            function drawBoardInit(canvasContext, width, height, fill) {
                 var i, j;
                 var board;
                 var url = RequestService.buildURL('get_grid', { test: "test1" });
@@ -72,7 +72,7 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                               canvasContext.fillStyle = '#33cc33';
                               break;
                           case 2:
-                              canvasContext.fillStyle = '#ffff00';
+                              canvasContext.fillStyle = '#ffff00'; //Yellow
                               break;
                           case 3:
                               canvasContext.fillStyle = '#663300';
@@ -81,7 +81,7 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                               canvasContext.fillStyle = '#0000ff';
                               break;
                           case 5:
-                              canvasContext.fillStyle = '#ff0000';
+                              canvasContext.fillStyle = '#ffff00'; //Yellow
                               break;
                       }
 
@@ -107,9 +107,34 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                     }
                 }
                 */
+
+                // Draw the boarders for the tiles
+                canvasContext.strokeStyle = '#C0C0C0';
+                canvasContext.lineWidth = 2;
+                ctx.strokeStyle = '#C0C0C0';
+                ctx.lineWidth = 2;
+                drawBoardToSelectTile(canvasContext, width, height, false);
             }
 
-            drawBoard(ctx, boardWidth, boardHeight);
+
+            // Should be called each on click event, to highlight a new hexagon
+            function drawBoardToSelectTile(canvasContext, width, height, fill) {
+                var i, j;
+                var board;
+
+                for (i = 0; i < width; ++i) {
+                    for (j = 0; j < height; ++j) {
+                        drawHexagon(
+                            ctx,
+                            i * hexRectangleWidth + ((j % 2) * hexRadius),
+                            j * (sideLength + hexHeight),
+                            fill
+                        );
+                    }
+                }
+            }
+
+            //drawBoard(ctx, boardWidth, boardHeight);
 
             canvas.addEventListener('click', function (eventInfo) {
 
@@ -124,7 +149,7 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                 ctx.strokeStyle = '#C0C0C0';
                 ctx.lineWidth = 2;
 
-                drawBoard(ctx, boardWidth, boardHeight);
+                drawBoardToSelectTile(ctx, boardWidth, boardHeight, false);
 
                 // Check if the mouse's coords are on the board
                 if (hexX >= 0 && hexX < boardWidth) {
