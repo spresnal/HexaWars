@@ -117,7 +117,6 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
             }
         });
     };
-
     //Handle scrolling to end of board
     var moveListener = function () {
         console.log(document.getElementById('panhandler').childNodes[0].style.MozTransform);
