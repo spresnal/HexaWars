@@ -120,8 +120,8 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
 
     //Handle scrolling to end of board
     var moveListener = function () {
-        console.log(document.getElementById('panhandler').childNodes[0].style.MozTransform);
-        console.log('moving');
+        //console.log(document.getElementById('panhandler').childNodes[0].style.MozTransform);
+        //console.log('moving');
     };
     document.getElementById('panhandler').addEventListener('mousedown', function () {
         document.getElementById('panhandler').addEventListener('mousemove', moveListener);

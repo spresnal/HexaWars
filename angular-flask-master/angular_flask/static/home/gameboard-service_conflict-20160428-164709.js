@@ -4,7 +4,7 @@ var currHexagon = {Y:-1, X:-1};
 
 
 
-angular.module('myApp.home').service('GameboardService', function (RequestService, $timeout) {
+angular.module('myApp.home').service('GameboardService', function (RequestService) {
     this.getcurrHexagon = function() {
         return currHexagon;
     }
@@ -39,11 +39,9 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
             //
             // }
 
-            function drawHexagon (canvasContext, x, y, fill, uni) {
+            function drawHexagon (canvasContext, x, y, fill) {
                 fill = fill || false;
-                if(uni != 0){
-                  console.log("->" + x.toString() + ' ' + y.toString() + ' unit' + uni);
-                }
+
                 canvasContext.beginPath();
                 canvasContext.moveTo(x + hexRadius, y);
                 canvasContext.lineTo(x + hexRectangleWidth, y + hexHeight);
@@ -58,12 +56,6 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                 // } else {
                     canvasContext.stroke();
                 // }
-                var img = new Image();
-                img.src = '/static/imgs/sprites/' + uni + '.png';
-                canvasContext.drawImage(img,
-                  x+8,
-                  y+8
-                );
             }
 
             function drawBoard(canvasContext, width, height, fill) {
@@ -75,7 +67,7 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
 
                   for(i=0; i<board.length; i++){
                       canvasContext.fillStyle = '#FFFFFF';
-                      if (board[i].x != 0 && board[i].x != 99 && board[i].y != 0 && board[i].y != 99) {
+                      if (board[i].x != 0 && board[i].x != 99 && board[i].y != 0 && board[i].y != 99)
                         switch (board[i].type) {
                             case 0:
                                 canvasContext.fillStyle = '#8a773c';
@@ -90,7 +82,6 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                                 canvasContext.fillStyle = '#256d7b';
                                 break;
                         }
-                      }
                        else {
                         canvasContext.fillStyle = '#000';
                       }
@@ -99,24 +90,16 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                           ctx,
                           board[i].x * hexRectangleWidth + ((board[i].y % 2) * hexRadius),
                           board[i].y * (sideLength + hexHeight),
-                          true,
-                          board[i].uni
+                          true
                       );
-                  }
-/*
-                  for(i=0; i<board.length; i++) {
-                      if (board[i].uni != 0) {
-                        console.log("->" + board[i].x.toString() + ' ' + board[i].y.toString());
 
+                      if (board[i].uni != 0) {
                         var img = new Image();
                         img.src = '/static/imgs/sprites/' + board[i].uni + '.png';
-                        canvasContext.drawImage(img,
-                          board[i].x * hexRectangleWidth + ((board[i].y % 2) * hexRadius) + 8,
-                          board[i].y * (sideLength + hexHeight) + 8
-                        );
+                        ctx.drawImage(img, 35 * board[i].x, 35 * board[i].y);
                       }
+
                   }
-*/
 
                   canvasContext.fillStyle = '#00ff00';
 

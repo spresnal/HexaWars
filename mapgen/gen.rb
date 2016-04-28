@@ -83,8 +83,8 @@ client = Mysql.new(
 
 client.query("create table if not exists #{br}_#{bc} (x INT,y INT, type INT, occ INT)")
 
-(0..99).each do |i|
-  (0..99).each do |j|
+(0..(x-3)).each do |i|
+  (0..(y-3)).each do |j|
     client.query("insert into #{br}_#{bc} values (\"#{i}\", \"#{j}\", \"#{final[i][j]}\", \"0\")")
   end
 end

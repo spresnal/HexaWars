@@ -42,19 +42,22 @@ def login():
 @app.route('/made_player', methods=['POST'])
 def made_player():
     print("made_player")
+
+    # cursor.execute("UPDATE * from 0_0")
+
     return "made_player"
 
 @app.route('/get_grid', methods=['POST'])
 def get_grid():
     # from random import randint
-    # import json
+    import json
     #
     # b = []
     #
     # for x in range(100):
     #     for y in range(100):
     #         b += [{"x":x, "y":y, "type":randint(1,5)}]
-    # 
+    #
     # print(b[20])
 
     cursor.execute("SELECT * from 0_0")
@@ -62,9 +65,10 @@ def get_grid():
 
     c = []
     for i in range(len(data)):
-        c += [{"x":int(data[i][0]), "y":int(data[i][1]), "type":int(data[i][2]), "unit":int(data[i][3])}]
+        c += [{"x":int(data[i][0]), "y":int(data[i][1]), "type":int(data[i][2]), "uni":int(data[i][3])}]
 
     print(c[0:20])
+
     return json.dumps(c)
 
 # routing for CRUD-style endpoints
