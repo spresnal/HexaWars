@@ -13,8 +13,6 @@ this.createUnit = function (type) {
 
 
     var url = RequestService.buildURL('made_player', { test: "test1" });
-    console.log(url);
-
     RequestService.request('POST', url, function(){});
 
 

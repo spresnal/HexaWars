@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 angular.module('myApp.home').service('RequestService', ['$http', function ($http) {
     /*
@@ -40,7 +40,10 @@ angular.module('myApp.home').service('RequestService', ['$http', function ($http
         }).then(function (successResult) {
             // this callback will be called asynchronously
             // when the response is available
+
             responseHandler({ success: true, response: successResult });
+            // responseHandler(successResult);
+            // return successResult;
         }, function (errorResult) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
