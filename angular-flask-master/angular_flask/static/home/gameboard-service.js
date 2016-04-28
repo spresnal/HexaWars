@@ -1,11 +1,11 @@
 ﻿'use strict';
 
-var currHexagon = {Y:-1, X:-1};
+var currHexagon = { Y: -1, X: -1 };
 
 
 
-angular.module('myApp.home').service('GameboardService', function (RequestService, $timeout) {
-    this.getcurrHexagon = function() {
+angular.module('myApp.home').service('GameboardService', function (RequestService, $interval) {
+    this.getcurrHexagon = function () {
         return currHexagon;
     }
 
@@ -31,19 +31,17 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
             //drawBoard(ctx, boardWidth, boardHeight, true);
 
             // Outline the board
-            drawBoard(ctx, boardWidth, boardHeight, false);
+//            drawBoard(ctx, boardWidth, boardHeight, false);
 
             // this.drawHexagonWithUnit = function (x, y, img) {
             //
             //     ctx.drawImage(img, x, y);
-            //
+            //y
             // }
 
-            function drawHexagon (canvasContext, x, y, fill, uni) {
+            function drawHexagon(canvasContext, x, y, fill, uni) {
                 fill = fill || false;
-                if(uni != 0){
-                  console.log("->" + x.toString() + ' ' + y.toString() + ' unit' + uni);
-                }
+
                 canvasContext.beginPath();
                 canvasContext.moveTo(x + hexRadius, y);
                 canvasContext.lineTo(x + hexRectangleWidth, y + hexHeight);
@@ -53,86 +51,64 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                 canvasContext.lineTo(x, y + hexHeight);
                 canvasContext.closePath();
 
-                // if (fill) {
-                    canvasContext.fill();
-                // } else {
-                    canvasContext.stroke();
-                // }
-                var img = new Image();
-                img.src = '/static/imgs/sprites/' + uni + '.png';
-                canvasContext.drawImage(img,
-                  x+8,
-                  y+8
-                );
+                canvasContext.fill();
+                canvasContext.stroke();
+
+                if (uni !== 0) {
+//                    console.log("->" + x.toString() + ' ' + y.toString() + ' unit' + uni);
+                    var img = new Image();
+                    img.src = '/static/imgs/sprites/' + uni + '.png';
+                    canvasContext.drawImage(img,
+                      x + 8,
+                      y + 8
+                    );
+                }
             }
 
             function drawBoard(canvasContext, width, height, fill) {
                 var i, j;
                 var board;
-                var url = RequestService.buildURL('get_grid', { test: "test1" });
-                RequestService.request('POST', url, function( data ){
-                  board = data.response.data;
+                var url = RequestService.buildURL('get_grid', { test: 'test1' });
+                $interval(function () {
+                    console.log('refreshing...');
+                    RequestService.request('POST', url, function (data) {
+                        board = data.response.data;
 
-                  for(i=0; i<board.length; i++){
-                      canvasContext.fillStyle = '#FFFFFF';
-                      if (board[i].x != 0 && board[i].x != 99 && board[i].y != 0 && board[i].y != 99) {
-                        switch (board[i].type) {
-                            case 0:
-                                canvasContext.fillStyle = '#8a773c';
-                                break;
-                            case 1:
-                                canvasContext.fillStyle = '#991e00';
-                                break;
-                            case 2:
-                                canvasContext.fillStyle = '#feb950';
-                                break;
-                            case 3:
-                                canvasContext.fillStyle = '#256d7b';
-                                break;
+                        for (i = 0; i < board.length; i++) {
+                            canvasContext.fillStyle = '#FFFFFF';
+                            if (board[i].x !== 0 && board[i].x !== 99 && board[i].y !== 0 && board[i].y !== 99) {
+                                switch (board[i].type) {
+                                    case 0:
+                                        canvasContext.fillStyle = '#8a773c';
+                                        break;
+                                    case 1:
+                                        canvasContext.fillStyle = '#991e00';
+                                        break;
+                                    case 2:
+                                        canvasContext.fillStyle = '#feb950';
+                                        break;
+                                    case 3:
+                                        canvasContext.fillStyle = '#256d7b';
+                                        break;
+                                }
+                            }
+                            else {
+                                canvasContext.fillStyle = '#000';
+                            }
+
+                            drawHexagon(
+                                ctx,
+                                board[i].x * hexRectangleWidth + ((board[i].y % 2) * hexRadius),
+                                board[i].y * (sideLength + hexHeight),
+                                true,
+                                board[i].uni
+                            );
                         }
-                      }
-                       else {
-                        canvasContext.fillStyle = '#000';
-                      }
 
-                      drawHexagon(
-                          ctx,
-                          board[i].x * hexRectangleWidth + ((board[i].y % 2) * hexRadius),
-                          board[i].y * (sideLength + hexHeight),
-                          true,
-                          board[i].uni
-                      );
-                  }
-/*
-                  for(i=0; i<board.length; i++) {
-                      if (board[i].uni != 0) {
-                        console.log("->" + board[i].x.toString() + ' ' + board[i].y.toString());
+                        canvasContext.fillStyle = '#00ff00';
 
-                        var img = new Image();
-                        img.src = '/static/imgs/sprites/' + board[i].uni + '.png';
-                        canvasContext.drawImage(img,
-                          board[i].x * hexRectangleWidth + ((board[i].y % 2) * hexRadius) + 8,
-                          board[i].y * (sideLength + hexHeight) + 8
-                        );
-                      }
-                  }
-*/
-
-                  canvasContext.fillStyle = '#00ff00';
-
-                });
-                /*
-                for (i = 0; i < width; ++i) {
-                    for (j = 0; j < height; ++j) {
-                        drawHexagon(
-                            ctx,
-                            jboard.x * hexRectangleWidth + ((j % 2) * hexRadius),
-                            jboard.y * (sideLength + hexHeight),
-                            fill
-                        );
-                    }
-                }
-                */
+                    });
+                }, 5000);
             }
 
             drawBoard(ctx, boardWidth, boardHeight);
@@ -150,7 +126,7 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                 ctx.strokeStyle = '#00ff00';
                 ctx.lineWidth = 2;
 
-                drawBoard(ctx, boardWidth, boardHeight);
+                //                drawBoard(ctx, boardWidth, boardHeight);
 
                 // Check if the mouse's coords are on the board
                 if (hexX >= 0 && hexX < boardWidth) {
@@ -164,13 +140,13 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                             ctx.lineWidth = 2;
                             drawHexagon(ctx, currHexagon.X, currHexagon.Y, false);
                         }
-                        // Check if we selected the same hexagon. If we did clear it.
+                            // Check if we selected the same hexagon. If we did clear it.
                         else if (currHexagon.X == screen.X && currHexagon.Y == screen.Y) {
                             ctx.strokeStyle = '#fff';
                             ctx.lineWidth = 2;
                             drawHexagon(ctx, currHexagon.X, currHexagon.Y, false);
                         }
-                        // New Hexagon, clear the old hexagon. Then set X & Y. Highlight new hexagon.
+                            // New Hexagon, clear the old hexagon. Then set X & Y. Highlight new hexagon.
                         else {
                             ctx.strokeStyle = '#fff';
                             ctx.lineWidth = 2;
