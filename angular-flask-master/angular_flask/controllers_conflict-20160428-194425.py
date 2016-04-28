@@ -40,6 +40,7 @@ def login():
 
 @app.route('/made_player', methods=['POST'])
 def made_player():
+
     x = int(request.args['x'])
     y = int(request.args['y'])
     owner = int(request.args['owner'])
@@ -47,9 +48,11 @@ def made_player():
 
     import random
     id = random.randint(0, 8726341)
+    print(id)
 
     cursor.execute("insert into units values ("+str(id)+","+str(owner)+","+str(kind)+",100.0)")
-    cursor.execute("UPDATE 0_0 SET occ="+str(id)+" WHERE x="+str(x)+" AND y="+str(y)+"; ")
+
+    cursor.execute("UPDATE 0_0 SET occ= WHERE x="+str(x)+" AND y=10; ")
 
     conn.commit()
     return "made_player"
