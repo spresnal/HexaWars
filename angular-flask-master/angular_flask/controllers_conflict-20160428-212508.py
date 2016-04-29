@@ -56,65 +56,8 @@ def basic_pages(**kwargs):
 def login():
     return 'Logged In'
 
-@app.route('/action')
-def action():
-	startx = int(request.args['sx'])
-	starty = int(request.args['sy'])
-	endx = int(request.args['ex'])
-	endy = int(request.args['ey'])
-	print(startx +' '+starty+' '+endx+' '+endy)
-
-	conn.commit()
-
-	cursor.execute("SELECT occ,health,type from 0_0 b, units u where b.x=startx and b.y=starty")
-	start = cursor.fetchall();
-	cursor.execute("SELECT occ,health,type from 0_0 b, units u where b.x=endx and b.y=endy")
-	end = cursor.fetchall();
-
-	print(start)
-	if(start[0][0] > 0 && end[0][0] > 0){ 			// attack
-		if(start[0][2] == 1){
-			newHP = end[0][1]-1
-		} else if(start[0][2] == 2){
-			newHP = end[0][1]-2
-		} else if(start[0][2] == 3){
-			newHP = end[0][1]-5
-		} else if(start[0][2] == 4){
-			newHP = end[0][1]-3
-		}
-		cursor.execute("UPDATE units set health="+str(newHP)+" where id="str(end[0][0]))
-		if(newHP != 0){ # target lived
-			if(end[0][2] == 1){
-				newHP = start[0][1]-1
-			} else if(end[0][2] == 2){
-				newHP = start[0][1]-2
-			} else if(end[0][2] == 3){
-				newHP = start[0][1]-5
-			} else if(end[0][2] == 4){
-				newHP = start[0][1]-3
-			}
-			cursor.execute("UPDATE units set health="+str(newHP)+" where id="str(start[0][0]))
-			if(newHP == 0){ # attacker died
-				cursor.execute("UPDATE 0_0 set occ=0 where occ="str(start[0][0]))
-			} else { # neither die
-				cursor.execute("UPDATE 0_0 set occ="+str(start[0][0])+" where x="+str(endx-1)+"AND y="+(str(endy-1)))
-				cursor.execute("UPDATE 0_0 set occ=0 where x="+str(startx)+"AND y="+(str(starty)))
-			}
-		} else { # target died
-			cursor.execute("UPDATE 0_0 set occ="+str(start[0][0])+" where occ="str(end[0][0]))
-		}
-	} else if(start[0][0] > 0 && end[0][0] == 0){		// move unit
-		cursor.execute("UPDATE 0_0 set x="+str(endx)+"AND y="+str(endy)+" where occ="str(start[0][0]))
-		cursor.execute("UPDATE units set x="+str(endx)+"AND y="+str(endy)+" where id="str(start[0][0]))
-	} else { // no action
-		// do nothing
-	}
-	#conn.commit()
-	return 'made action'
-
 @app.route('/made_player', methods=['POST'])
 def made_player():
-
     x = int(request.args['x'])
     y = int(request.args['y'])
     owner = int(request.args['owner'])
@@ -122,10 +65,10 @@ def made_player():
 
     import random
     id = random.randint(0, 8726341)
-    id = kind
+    id = 77
 
     cursor.execute("insert into units values ("+str(id)+","+str(owner)+","+str(kind)+",100.0)")
-    cursor.execute("UPDATE 0_0 SET occ="+str(id)+" WHERE x="+str(x)+" AND y="+str(y)+"; ")
+    # cursor.execute("UPDATE 0_0 SET occ="+str(id)+" WHERE x="+str(x)+" AND y="+str(y)+"; ")
 
     conn.commit()
     return "made_player"
@@ -145,7 +88,6 @@ def get_grid():
 
     # cursor2 = conn.cursor()
 
-    conn.commit()
 
     cursor.execute("SELECT * from 0_0")
     data = cursor.fetchall()
@@ -154,7 +96,8 @@ def get_grid():
     for i in range(len(data)):
         c += [{"x":int(data[i][0]), "y":int(data[i][1]), "type":int(data[i][2]), "uni":int(data[i][3])}]
 
-    print(c[0:20])
+    # print(c[0:20])
+
 
     return json.dumps(c)
 

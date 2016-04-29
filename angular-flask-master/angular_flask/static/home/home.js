@@ -62,7 +62,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
 
     $scope.createunit = function (type) {
         // Costs 2 gold, 2 steel
-        if (type === 'pikeman' || type === 'knight' || type === 'swordsman') {
+        if (type == 1 || type == 2 || type == 3) {
             if ($scope.gold >= 2 && $scope.stone >= 2) {
                 UnitService.createUnit(type);
 
@@ -75,7 +75,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
             }
         }
         // Costs 5 gold
-        else if (type === 'mage') {
+        else if (type == 4) {
             if ($scope.gold >= 5) {
                 UnitService.createUnit(type);
 
@@ -87,7 +87,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
             }
         }
         // Costs 1 gold, 1 wood
-        else if (type === 'archer') {
+        else if (type == 5) {
             if ($scope.gold >= 1 && $scope.wood >= 1) {
                 UnitService.createUnit(type);
 

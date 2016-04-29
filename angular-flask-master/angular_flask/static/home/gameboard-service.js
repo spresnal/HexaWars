@@ -3,9 +3,17 @@
 
 var currHexagon = {
     Y: -1,
-    X: -1
+    X: -1,
+    hexX: -1,
+    hexY: -1,
 };
 
+var prevHexagon = {
+    Y: -1,
+    X: -1,
+    hexX: -1,
+    hexY: -1,
+};
 
 
 angular.module('myApp.home').service('GameboardService', function (RequestService, $interval) {
@@ -39,11 +47,9 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
             // Outline the board
 //            drawBoard(ctx, boardWidth, boardHeight, false);
 
-            // this.drawHexagonWithUnit = function (x, y, img) {
-            //
-            //     ctx.drawImage(img, x, y);
-            //y
-            // }
+            this.drawHexagonWithUnit = function (x, y, img) {
+                ctx.drawImage(img, x, y);
+            }
 
             function drawHexagon(canvasContext, x, y, fill, uni) {
                 fill = fill || false;
@@ -60,15 +66,11 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                 canvasContext.fill();
                 canvasContext.stroke();
 
-                if (uni != 0 && uni != undefined) {
-                    console.log("->" + x.toString() + ' ' + y.toString() + ' unit' + uni);
+                if (uni > 0 && uni <= 4) {
+                    // console.log("->" + x.toString() + ' ' + y.toString() + ' unit' + uni);
                     var img = new Image();
                     img.src = '/static/imgs/sprites/' + uni + '.png';
-                    canvasContext.drawImage(img,
-                    x + 8,
-                    y + 8
-                );
-
+                    canvasContext.drawImage(img,x + 8,y + 8);
               }
             }
 
@@ -78,6 +80,7 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                     test: "test1"
                 });
                 $interval(function() {
+                  // console.log("iter")
                         RequestService.request('POST',
                             url,
                             function(data) {
@@ -112,38 +115,12 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                                         board[i].uni
                                     );
                                 }
-                                /*
-                                                  for(i=0; i<board.length; i++) {
-                                                      if (board[i].uni != 0) {
-                                                        console.log("->" + board[i].x.toString() + ' ' + board[i].y.toString());
-            
-                                                        var img = new Image();
-                                                        img.src = '/static/imgs/sprites/' + board[i].uni + '.png';
-                                                        canvasContext.drawImage(img,
-                                                          board[i].x * hexRectangleWidth + ((board[i].y % 2) * hexRadius) + 8,
-                                                          board[i].y * (sideLength + hexHeight) + 8
-                                                        );
-                                                      }
-                                                  }
-                                */
 
                                 canvasContext.fillStyle = '#00ff00';
 
                             });
                     },
-                    5000);
-                /*
-                for (i = 0; i < width; ++i) {
-                    for (j = 0; j < height; ++j) {
-                        drawHexagon(
-                            ctx,
-                            jboard.x * hexRectangleWidth + ((j % 2) * hexRadius),
-                            jboard.y * (sideLength + hexHeight),
-                            fill
-                        );
-                    }
-                }
-                */
+                    2000);
             }
 
             drawBoard(ctx, boardWidth, boardHeight);
@@ -158,8 +135,14 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                     screenX = hexX * hexRectangleWidth + ((hexY % 2) * hexRadius),
                     screenY = hexY * (hexHeight + sideLength);
 
+
+                    currHexagon.X = screenX;
+                    currHexagon.Y = screenY;
+                    currHexagon.hexX = hexX;
+                    currHexagon.hexY = hexY;
+
                 //conversion from click to tuple
-                console.log(board[hexX * 100 + hexY]);
+                // console.log(board[hexX * 100 + hexY]);
 
                 ctx.strokeStyle = '#00ff00';
                 ctx.lineWidth = 2;

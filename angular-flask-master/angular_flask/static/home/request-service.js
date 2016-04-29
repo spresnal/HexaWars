@@ -40,7 +40,6 @@ angular.module('myApp.home').service('RequestService', ['$http', function ($http
         }).then(function (successResult) {
             // this callback will be called asynchronously
             // when the response is available
-
             responseHandler({ success: true, response: successResult });
             // responseHandler(successResult);
             // return successResult;
