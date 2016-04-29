@@ -46,7 +46,7 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
             // }
 
             function drawHexagon(canvasContext, x, y, fill, uni) {
-                fill = fill || false;
+                // fill = fill || false;
 
                 canvasContext.beginPath();
                 canvasContext.moveTo(x + hexRadius, y);
@@ -61,7 +61,7 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                 canvasContext.stroke();
 
                 if (uni != 0 && uni != undefined) {
-                    console.log("->" + x.toString() + ' ' + y.toString() + ' unit' + uni);
+                    //console.log("->" + x.toString() + ' ' + y.toString() + ' unit' + uni);
                     var img = new Image();
                     img.src = '/static/imgs/sprites/' + uni + '.png';
                     canvasContext.drawImage(img,
@@ -71,6 +71,8 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
 
               }
             }
+
+
 
             function drawBoard(canvasContext, width, height, fill) {
                 var i, j;
@@ -148,6 +150,36 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
 
             drawBoard(ctx, boardWidth, boardHeight);
 
+            function drawBoardOutlines(canvasContext, width, height, fill) {
+                var i, j;
+                for (i = 0; i < width; ++i) {
+                    for (j = 0; j < height; ++j) {
+                        drawHexagonBoarder(
+                            ctx,
+                            i * hexRectangleWidth + ((j % 2) * hexRadius),
+                            j * (sideLength + hexHeight),
+                            fill
+                        );
+                    }
+                }
+            }
+
+            function drawHexagonBoarder(canvasContext, x, y, fill, uni) {
+                // fill = fill || false;
+
+                canvasContext.beginPath();
+                canvasContext.moveTo(x + hexRadius, y);
+                canvasContext.lineTo(x + hexRectangleWidth, y + hexHeight);
+                canvasContext.lineTo(x + hexRectangleWidth, y + hexHeight + sideLength);
+                canvasContext.lineTo(x + hexRadius, y + hexRectangleHeight);
+                canvasContext.lineTo(x, y + sideLength + hexHeight);
+                canvasContext.lineTo(x, y + hexHeight);
+                canvasContext.closePath();
+
+                
+                canvasContext.stroke();
+            }
+
             canvas.addEventListener('click', function(eventInfo) {
 
                 // Get the X and Y coordinates of the selected Hexagon
@@ -199,6 +231,34 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
 
                     }
                 }
+
+                // If the clicked Hex has a unit highlight the area areound it
+                if (board[hexX * 100 + hexY].uni) {
+                    ctx.strokeStyle = '#00ff00';
+                    ctx.lineWidth = 2;
+
+                    // East Hex
+                    drawHexagonBoarder(ctx, currHexagon.X + hexRectangleWidth, currHexagon.Y, false);
+
+                    // West Hex
+                    drawHexagonBoarder(ctx, currHexagon.X - hexRectangleWidth, currHexagon.Y, false);
+
+                    // NE Hex
+                    drawHexagonBoarder(ctx, currHexagon.X + hexRectangleWidth/2, currHexagon.Y - (hexRectangleHeight - 17.5), false);
+
+                    // NW Hex
+                    drawHexagonBoarder(ctx, currHexagon.X - hexRectangleWidth / 2, currHexagon.Y - (hexRectangleHeight - 17.5), false);
+
+                    // SW Hex
+                    drawHexagonBoarder(ctx, currHexagon.X + hexRectangleWidth / 2, currHexagon.Y + (hexRectangleHeight - 17.5), false);
+
+                    // SE Hex
+                    drawHexagonBoarder(ctx, currHexagon.X - hexRectangleWidth / 2, currHexagon.Y + (hexRectangleHeight -17.5 ), false);
+                }
+
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 2;
+
             });
         }
     }
