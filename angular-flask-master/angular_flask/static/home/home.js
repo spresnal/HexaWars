@@ -6,7 +6,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     GameboardService.initBoard();
 
     //set board width and height for panning
-    $scope.screenHeight = window.innerHeight - 90 + 'px';
+    $scope.screenHeight = window.innerHeight - 245 + 'px';
     $scope.screenWidth = window.innerWidth + 'px';
     $scope.build = 'units';
 
@@ -128,5 +128,22 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     });
     document.getElementById('panhandler').addEventListener('mouseup', function () {
         document.getElementById('panhandler').removeEventListener('mousemove', moveListener);
+    });
+
+    $(document).ready(function () {
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('my response', function (msg) {
+            $('.container').append('<p>'+msg.data+'</p>');
+        });
+
+        socket.on('connect', function () {
+            socket.emit('my event', { data: 'I\'m connected!' });
+        });
+
+        $('form#emit').submit(function (event) {
+            socket.emit('my event', { data: $scope.displayName + ': ' + $('#emit_data').val() });
+            return false;
+        });
     });
 }]);

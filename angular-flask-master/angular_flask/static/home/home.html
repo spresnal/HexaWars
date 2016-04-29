@@ -1,6 +1,6 @@
 <div style="position: relative">
     <!--Sign in form-->
-    <!-- <div class="wrapper" ng-show="view === 'login'" style="z-index: 1">
+    <div class="wrapper" ng-show="view === 'login'" style="z-index: 1">
         <form class="form-signin well centered" name="loginForm" ng-submit="loginForm.$valid && login(loginUsername, loginPassword)" novalidate>
             <h2 class="form-signin-heading" style="padding-top: 0; margin-top: 0;">Please sign in</h2>
             <label for="loginUsername" class="sr-only">Username</label>
@@ -15,7 +15,7 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             <button class="btn btn-lg btn-danger btn-block" type="button" ng-click="view = 'register'">Register</button>
         </form>
-    </div> -->
+    </div>
 
     <!--Register form-->
     <div class="wrapper" ng-show="view === 'register'" style="z-index: 1">
@@ -35,25 +35,25 @@
         <tr>
             <td>
                 <div class="circleBase resource">
-                    <img src="/static/imgs/resources/gold.png" height="60" width="60" alt="gold" />
+                    <img src="/static/imgs/resources/gold.png" height="60" width="60" alt="gold"/>
                     <p>{{gold}}</p>
                 </div>
             </td>
             <td>
-                <div class="circleBase resource" >
-                    <img src="/static/imgs/resources/food.png" height="60" width="60" alt="food" />
+                <div class="circleBase resource">
+                    <img src="/static/imgs/resources/food.png" height="60" width="60" alt="food"/>
                     <p>{{food}}</p>
                 </div>
             </td>
             <td>
-                <div class="circleBase resource" >
-                    <img src="/static/imgs/resources/wood.png" height="60" width="60" alt="wood" />
+                <div class="circleBase resource">
+                    <img src="/static/imgs/resources/wood.png" height="60" width="60" alt="wood"/>
                     <p>{{wood}}</p>
                 </div>
             </td>
             <td>
-                <div class="circleBase resource" >
-                    <img src="/static/imgs/resources/stone.png" height="60" width="60" alt="stone" />
+                <div class="circleBase resource">
+                    <img src="/static/imgs/resources/stone.png" height="60" width="60" alt="stone"/>
                     <p> {{stone}}</p>
                 </div>
             </td>
@@ -116,8 +116,15 @@
     </div>
 
     <!--Wrapper for panning-->
-    <div class="panhandler" id="panhandler" content-height="{{screenHeight}}" content-width="{{screenWidth}}" style="z-index:-1">
+    <div class="panhandler" id="panhandler" content-height="{{screenHeight}}" content-width="{{screenWidth}}" style="z-index: -1">
         <!--Canvas for game board-->
         <canvas id="hexmap" width="6100" height="5280"></canvas>
     </div>
 </div>
+
+ <!--Establish connection with -->
+<div class="container"></div>
+<form id="emit" method="POST" action="#">
+    <input type="text" name="emit_data" id="emit_data" placeholder="Message"/>
+    <input type="submit" value="Send"/>
+</form>
