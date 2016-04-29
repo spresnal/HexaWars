@@ -8,7 +8,9 @@ var currHexagon = {
 
 
 
-angular.module('myApp.home').service('GameboardService', function(RequestService, $timeout) {
+angular.module('myApp.home').service('GameboardService', function (RequestService, $interval) {
+    var board;
+
     this.getcurrHexagon = function() {
         return currHexagon;
     }
@@ -72,60 +74,64 @@ angular.module('myApp.home').service('GameboardService', function(RequestService
 
             function drawBoard(canvasContext, width, height, fill) {
                 var i, j;
-                var board;
                 var url = RequestService.buildURL('get_grid', {
                     test: "test1"
                 });
-                RequestService.request('POST', url, function(data) {
-                    board = data.response.data;
+                $interval(function() {
+                        RequestService.request('POST',
+                            url,
+                            function(data) {
+                                board = data.response.data;
 
-                    for (i = 0; i < board.length; i++) {
-                        canvasContext.fillStyle = '#FFFFFF';
-                        if (board[i].x != 0 && board[i].x != 99 && board[i].y != 0 && board[i].y != 99) {
-                            switch (board[i].type) {
-                                case 0:
-                                    canvasContext.fillStyle = '#397628';
-                                    break;
-                                case 1:
-                                    canvasContext.fillStyle = '#991e00';
-                                    break;
-                                case 2:
-                                    canvasContext.fillStyle = '#feb950';
-                                    break;
-                                case 3:
-                                    canvasContext.fillStyle = '#256d7b';
-                                    break;
-                            }
-                        } else {
-                            canvasContext.fillStyle = '#000';
-                        }
+                                for (i = 0; i < board.length; i++) {
+                                    canvasContext.fillStyle = '#FFFFFF';
+                                    if (board[i].x != 0 && board[i].x != 99 && board[i].y != 0 && board[i].y != 99) {
+                                        switch (board[i].type) {
+                                        case 0:
+                                            canvasContext.fillStyle = '#397628';
+                                            break;
+                                        case 1:
+                                            canvasContext.fillStyle = '#991e00';
+                                            break;
+                                        case 2:
+                                            canvasContext.fillStyle = '#feb950';
+                                            break;
+                                        case 3:
+                                            canvasContext.fillStyle = '#256d7b';
+                                            break;
+                                        }
+                                    } else {
+                                        canvasContext.fillStyle = '#000';
+                                    }
 
-                        drawHexagon(
-                            ctx,
-                            board[i].x * hexRectangleWidth + ((board[i].y % 2) * hexRadius),
-                            board[i].y * (sideLength + hexHeight),
-                            true,
-                            board[i].uni
-                        );
-                    }
-                    /*
-                                      for(i=0; i<board.length; i++) {
-                                          if (board[i].uni != 0) {
-                                            console.log("->" + board[i].x.toString() + ' ' + board[i].y.toString());
+                                    drawHexagon(
+                                        ctx,
+                                        board[i].x * hexRectangleWidth + ((board[i].y % 2) * hexRadius),
+                                        board[i].y * (sideLength + hexHeight),
+                                        true,
+                                        board[i].uni
+                                    );
+                                }
+                                /*
+                                                  for(i=0; i<board.length; i++) {
+                                                      if (board[i].uni != 0) {
+                                                        console.log("->" + board[i].x.toString() + ' ' + board[i].y.toString());
+            
+                                                        var img = new Image();
+                                                        img.src = '/static/imgs/sprites/' + board[i].uni + '.png';
+                                                        canvasContext.drawImage(img,
+                                                          board[i].x * hexRectangleWidth + ((board[i].y % 2) * hexRadius) + 8,
+                                                          board[i].y * (sideLength + hexHeight) + 8
+                                                        );
+                                                      }
+                                                  }
+                                */
 
-                                            var img = new Image();
-                                            img.src = '/static/imgs/sprites/' + board[i].uni + '.png';
-                                            canvasContext.drawImage(img,
-                                              board[i].x * hexRectangleWidth + ((board[i].y % 2) * hexRadius) + 8,
-                                              board[i].y * (sideLength + hexHeight) + 8
-                                            );
-                                          }
-                                      }
-                    */
+                                canvasContext.fillStyle = '#00ff00';
 
-                    canvasContext.fillStyle = '#00ff00';
-
-                });
+                            });
+                    },
+                    5000);
                 /*
                 for (i = 0; i < width; ++i) {
                     for (j = 0; j < height; ++j) {
@@ -151,6 +157,9 @@ angular.module('myApp.home').service('GameboardService', function(RequestService
                     hexX = Math.floor((x - (hexY % 2) * hexRadius) / hexRectangleWidth),
                     screenX = hexX * hexRectangleWidth + ((hexY % 2) * hexRadius),
                     screenY = hexY * (hexHeight + sideLength);
+
+                //conversion from click to tuple
+                console.log(board[hexX * 100 + hexY]);
 
                 ctx.strokeStyle = '#00ff00';
                 ctx.lineWidth = 2;
