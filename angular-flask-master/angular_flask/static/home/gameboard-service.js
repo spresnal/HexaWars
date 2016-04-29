@@ -192,6 +192,12 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
 
                 //conversion from click to tuple
                 console.log(board[hexX * 100 + hexY]);
+                
+                // Clean the board real quick
+                 ctx.strokeStyle = '#fff';
+                 ctx.lineWidth = 2;
+                 drawBoardOutlines(canvas, x, y, true);
+
 
                 ctx.strokeStyle = '#00ff00';
                 ctx.lineWidth = 2;
@@ -206,33 +212,33 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                         if (currHexagon.X == -1 && currHexagon.Y == -1) {
                             currHexagon.X = screenX;
                             currHexagon.Y = screenY;
-                            ctx.strokeStyle = '#fff';
+                            ctx.strokeStyle = '#00ff00';
                             ctx.lineWidth = 2;
-                            drawHexagon(ctx, currHexagon.X, currHexagon.Y, false);
+                            drawHexagonBoarder(ctx, currHexagon.X, currHexagon.Y, false);
                         }
                             // Check if we selected the same hexagon. If we did clear it.
                         else if (currHexagon.X == screen.X && currHexagon.Y == screen.Y) {
-                            ctx.strokeStyle = '#fff';
+                            ctx.strokeStyle = '#00ff00';
                             ctx.lineWidth = 2;
-                            drawHexagon(ctx, currHexagon.X, currHexagon.Y, false);
+                            drawHexagonBoarder(ctx, currHexagon.X, currHexagon.Y, false);
                         }
 
                         // New Hexagon, clear the old hexagon. Then set X & Y. Highlight new hexagon.
                         else {
                             ctx.strokeStyle = '#fff';
                             ctx.lineWidth = 2;
-                            drawHexagon(ctx, currHexagon.X, currHexagon.Y, false);
+                            drawHexagonBoarder(ctx, currHexagon.X, currHexagon.Y, false);
                             currHexagon.X = screenX;
                             currHexagon.Y = screenY;
-                            ctx.strokeStyle = '#fff';
+                            ctx.strokeStyle = '#00ff00';
                             ctx.lineWidth = 2;
-                            drawHexagon(ctx, screenX, screenY, false);
+                            drawHexagonBoarder(ctx, screenX, screenY, false);
                         }
 
                     }
                 }
 
-                // If the clicked Hex has a unit highlight the area areound it
+                // If the clicked Hex has a unit highlight the area around it
                 if (board[hexX * 100 + hexY].uni) {
                     ctx.strokeStyle = '#00ff00';
                     ctx.lineWidth = 2;
