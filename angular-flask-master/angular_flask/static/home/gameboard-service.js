@@ -194,9 +194,9 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                 console.log(board[hexX * 100 + hexY]);
                 
                 // Clean the board real quick
-                 ctx.strokeStyle = '#fff';
-                 ctx.lineWidth = 2;
-                 drawBoardOutlines(canvas, x, y, true);
+               //  ctx.strokeStyle = '#fff';
+               //  ctx.lineWidth = 2;
+                // drawBoardOutlines(canvas, x, y, true);
 
 
                 ctx.strokeStyle = '#00ff00';
@@ -225,9 +225,32 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
 
                         // New Hexagon, clear the old hexagon. Then set X & Y. Highlight new hexagon.
                         else {
+                            // Clear AOE around previous hexagon
                             ctx.strokeStyle = '#fff';
                             ctx.lineWidth = 2;
                             drawHexagonBoarder(ctx, currHexagon.X, currHexagon.Y, false);
+
+                            // East Hex
+                            drawHexagonBoarder(ctx, currHexagon.X + hexRectangleWidth, currHexagon.Y, false);
+
+                            // West Hex
+                            drawHexagonBoarder(ctx, currHexagon.X - hexRectangleWidth, currHexagon.Y, false);
+
+                            // NE Hex
+                            drawHexagonBoarder(ctx, currHexagon.X + hexRectangleWidth / 2, currHexagon.Y - (hexRectangleHeight - 17.5), false);
+
+                            // NW Hex
+                            drawHexagonBoarder(ctx, currHexagon.X - hexRectangleWidth / 2, currHexagon.Y - (hexRectangleHeight - 17.5), false);
+
+                            // SW Hex
+                            drawHexagonBoarder(ctx, currHexagon.X + hexRectangleWidth / 2, currHexagon.Y + (hexRectangleHeight - 17.5), false);
+
+                            // SE Hex
+                            drawHexagonBoarder(ctx, currHexagon.X - hexRectangleWidth / 2, currHexagon.Y + (hexRectangleHeight - 17.5), false);
+
+
+
+
                             currHexagon.X = screenX;
                             currHexagon.Y = screenY;
                             ctx.strokeStyle = '#00ff00';
