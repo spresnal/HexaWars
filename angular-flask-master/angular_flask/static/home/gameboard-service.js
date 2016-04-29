@@ -16,7 +16,7 @@ var prevHexagon = {
 };
 
 
-angular.module('myApp.home').service('GameboardService', function (RequestService, $interval) {
+angular.module('myApp.home').service('GameboardService', function(RequestService, $interval) {
     var board;
 
     this.getcurrHexagon = function() {
@@ -45,9 +45,9 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
             //drawBoard(ctx, boardWidth, boardHeight, true);
 
             // Outline the board
-//            drawBoard(ctx, boardWidth, boardHeight, false);
+            //            drawBoard(ctx, boardWidth, boardHeight, false);
 
-            this.drawHexagonWithUnit = function (x, y, img) {
+            this.drawHexagonWithUnit = function(x, y, img) {
                 ctx.drawImage(img, x, y);
             }
 
@@ -70,8 +70,8 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                     // console.log("->" + x.toString() + ' ' + y.toString() + ' unit' + uni);
                     var img = new Image();
                     img.src = '/static/imgs/sprites/' + uni + '.png';
-                    canvasContext.drawImage(img,x + 8,y + 8);
-              }
+                    canvasContext.drawImage(img, x + 8, y + 8);
+                }
             }
 
             function drawBoard(canvasContext, width, height, fill) {
@@ -80,7 +80,7 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                     test: "test1"
                 });
                 $interval(function() {
-                  // console.log("iter")
+                        // console.log("iter")
                         RequestService.request('POST',
                             url,
                             function(data) {
@@ -90,18 +90,18 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                                     canvasContext.fillStyle = '#FFFFFF';
                                     if (board[i].x != 0 && board[i].x != 99 && board[i].y != 0 && board[i].y != 99) {
                                         switch (board[i].type) {
-                                        case 0:
-                                            canvasContext.fillStyle = '#397628';
-                                            break;
-                                        case 1:
-                                            canvasContext.fillStyle = '#991e00';
-                                            break;
-                                        case 2:
-                                            canvasContext.fillStyle = '#feb950';
-                                            break;
-                                        case 3:
-                                            canvasContext.fillStyle = '#256d7b';
-                                            break;
+                                            case 0:
+                                                canvasContext.fillStyle = '#397628';
+                                                break;
+                                            case 1:
+                                                canvasContext.fillStyle = '#991e00';
+                                                break;
+                                            case 2:
+                                                canvasContext.fillStyle = '#feb950';
+                                                break;
+                                            case 3:
+                                                canvasContext.fillStyle = '#256d7b';
+                                                break;
                                         }
                                     } else {
                                         canvasContext.fillStyle = '#000';
@@ -112,7 +112,7 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                                         board[i].x * hexRectangleWidth + ((board[i].y % 2) * hexRadius),
                                         board[i].y * (sideLength + hexHeight),
                                         true,
-                                        board[i].uni
+                                        board[i].unittype
                                     );
                                 }
 
@@ -125,6 +125,37 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
 
             drawBoard(ctx, boardWidth, boardHeight);
 
+
+            function drawBoardOutlines(canvasContext, width, height, fill) {
+                var i, j;
+                for (i = 0; i < width; ++i) {
+                    for (j = 0; j < height; ++j) {
+                        drawHexagonBoarder(
+                            ctx,
+                            i * hexRectangleWidth + ((j % 2) * hexRadius),
+                            j * (sideLength + hexHeight),
+                            fill
+                        );
+                    }
+                }
+            }
+
+            function drawHexagonBoarder(canvasContext, x, y, fill, uni) {
+                // fill = fill || false;
+
+                canvasContext.beginPath();
+                canvasContext.moveTo(x + hexRadius, y);
+                canvasContext.lineTo(x + hexRectangleWidth, y + hexHeight);
+                canvasContext.lineTo(x + hexRectangleWidth, y + hexHeight + sideLength);
+                canvasContext.lineTo(x + hexRadius, y + hexRectangleHeight);
+                canvasContext.lineTo(x, y + sideLength + hexHeight);
+                canvasContext.lineTo(x, y + hexHeight);
+                canvasContext.closePath();
+
+
+                canvasContext.stroke();
+            }
+
             canvas.addEventListener('click', function(eventInfo) {
 
                 // Get the X and Y coordinates of the selected Hexagon
@@ -135,19 +166,36 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                     screenX = hexX * hexRectangleWidth + ((hexY % 2) * hexRadius),
                     screenY = hexY * (hexHeight + sideLength);
 
+                prevHexagon.X = currHexagon.X;
+                prevHexagon.Y = currHexagon.Y;
+                prevHexagon.hexX = currHexagon.hexX;
+                prevHexagon.hexY = currHexagon.hexY;
 
-                    currHexagon.X = screenX;
-                    currHexagon.Y = screenY;
-                    currHexagon.hexX = hexX;
-                    currHexagon.hexY = hexY;
+                currHexagon.X = screenX;
+                currHexagon.Y = screenY;
+                currHexagon.hexX = hexX;
+                currHexagon.hexY = hexY;
 
                 //conversion from click to tuple
                 // console.log(board[hexX * 100 + hexY]);
 
-                ctx.strokeStyle = '#00ff00';
-                ctx.lineWidth = 2;
+                // ctx.strokeStyle = '#00ff00';
+                // ctx.lineWidth = 2;
 
                 //                drawBoard(ctx, boardWidth, boardHeight);
+                // console.log(prevHexagon);
+                // console.log(currHexagon);
+
+                var url = RequestService.buildURL('action', {
+                    sx: prevHexagon.hexX,
+                    sy: prevHexagon.hexY,
+                    ex: currHexagon.hexX,
+                    ey: currHexagon.hexY
+                });
+
+                RequestService.request('POST', url, function() {
+                    // console.log("action made");
+                });
 
                 // Check if the mouse's coords are on the board
                 if (hexX >= 0 && hexX < boardWidth) {
@@ -157,31 +205,81 @@ angular.module('myApp.home').service('GameboardService', function (RequestServic
                         if (currHexagon.X == -1 && currHexagon.Y == -1) {
                             currHexagon.X = screenX;
                             currHexagon.Y = screenY;
-                            ctx.strokeStyle = '#fff';
+                            ctx.strokeStyle = '#00ff00';
                             ctx.lineWidth = 2;
-                            drawHexagon(ctx, currHexagon.X, currHexagon.Y, false);
+                            drawHexagonBoarder(ctx, currHexagon.X, currHexagon.Y, false);
                         }
-                            // Check if we selected the same hexagon. If we did clear it.
+                        // Check if we selected the same hexagon. If we did clear it.
                         else if (currHexagon.X == screen.X && currHexagon.Y == screen.Y) {
-                            ctx.strokeStyle = '#fff';
+                            ctx.strokeStyle = '#00ff00';
                             ctx.lineWidth = 2;
-                            drawHexagon(ctx, currHexagon.X, currHexagon.Y, false);
+                            drawHexagonBoarder(ctx, currHexagon.X, currHexagon.Y, false);
                         }
 
                         // New Hexagon, clear the old hexagon. Then set X & Y. Highlight new hexagon.
                         else {
+                            // Clear AOE around previous hexagon
                             ctx.strokeStyle = '#fff';
                             ctx.lineWidth = 2;
-                            drawHexagon(ctx, currHexagon.X, currHexagon.Y, false);
+                            drawHexagonBoarder(ctx, currHexagon.X, currHexagon.Y, false);
+
+                            // East Hex
+                            drawHexagonBoarder(ctx, currHexagon.X + hexRectangleWidth, currHexagon.Y, false);
+
+                            // West Hex
+                            drawHexagonBoarder(ctx, currHexagon.X - hexRectangleWidth, currHexagon.Y, false);
+
+                            // NE Hex
+                            drawHexagonBoarder(ctx, currHexagon.X + hexRectangleWidth / 2, currHexagon.Y - (hexRectangleHeight - 17.5), false);
+
+                            // NW Hex
+                            drawHexagonBoarder(ctx, currHexagon.X - hexRectangleWidth / 2, currHexagon.Y - (hexRectangleHeight - 17.5), false);
+
+                            // SW Hex
+                            drawHexagonBoarder(ctx, currHexagon.X + hexRectangleWidth / 2, currHexagon.Y + (hexRectangleHeight - 17.5), false);
+
+                            // SE Hex
+                            drawHexagonBoarder(ctx, currHexagon.X - hexRectangleWidth / 2, currHexagon.Y + (hexRectangleHeight - 17.5), false);
+
+
+
+
                             currHexagon.X = screenX;
                             currHexagon.Y = screenY;
-                            ctx.strokeStyle = '#fff';
+                            ctx.strokeStyle = '#00ff00';
                             ctx.lineWidth = 2;
-                            drawHexagon(ctx, screenX, screenY, false);
+                            drawHexagonBoarder(ctx, screenX, screenY, false);
                         }
 
                     }
                 }
+
+                if (board[hexX * 100 + hexY].unittype) {
+                    ctx.strokeStyle = '#00ff00';
+                    ctx.lineWidth = 2;
+
+                    // East Hex
+                    drawHexagonBoarder(ctx, currHexagon.X + hexRectangleWidth, currHexagon.Y, false);
+
+                    // West Hex
+                    drawHexagonBoarder(ctx, currHexagon.X - hexRectangleWidth, currHexagon.Y, false);
+
+                    // NE Hex
+                    drawHexagonBoarder(ctx, currHexagon.X + hexRectangleWidth / 2, currHexagon.Y - (hexRectangleHeight - 17.5), false);
+
+                    // NW Hex
+                    drawHexagonBoarder(ctx, currHexagon.X - hexRectangleWidth / 2, currHexagon.Y - (hexRectangleHeight - 17.5), false);
+
+                    // SW Hex
+                    drawHexagonBoarder(ctx, currHexagon.X + hexRectangleWidth / 2, currHexagon.Y + (hexRectangleHeight - 17.5), false);
+
+                    // SE Hex
+                    drawHexagonBoarder(ctx, currHexagon.X - hexRectangleWidth / 2, currHexagon.Y + (hexRectangleHeight - 17.5), false);
+                }
+
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 2;
+
             });
         }
     }

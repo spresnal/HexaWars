@@ -1,16 +1,16 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/local/Cellar/node/5.10.1/bin/node',
+1 verbose cli [ '/usr/local/Cellar/node/5.11.0/bin/node',
 1 verbose cli   '/usr/local/bin/npm',
 1 verbose cli   'start' ]
-2 info using npm@3.8.3
-3 info using node@v5.10.1
+2 info using npm@3.8.6
+3 info using node@v5.11.0
 4 verbose stack Error: ENOENT: no such file or directory, open '/Users/graham/Dropbox/workspace/HexaWars/package.json'
 4 verbose stack     at Error (native)
 5 verbose cwd /Users/graham/Dropbox/workspace/HexaWars
 6 error Darwin 15.0.0
-7 error argv "/usr/local/Cellar/node/5.10.1/bin/node" "/usr/local/bin/npm" "start"
-8 error node v5.10.1
-9 error npm  v3.8.3
+7 error argv "/usr/local/Cellar/node/5.11.0/bin/node" "/usr/local/bin/npm" "start"
+8 error node v5.11.0
+9 error npm  v3.8.6
 10 error path /Users/graham/Dropbox/workspace/HexaWars/package.json
 11 error code ENOENT
 12 error errno -2
