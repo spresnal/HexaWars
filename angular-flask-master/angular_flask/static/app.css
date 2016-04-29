@@ -110,3 +110,29 @@ table.resource-display {
     background: lightblue;
     border: 3px solid gray;
 }
+
+.container, .inp {
+    color: #DDD;
+    background: #222;
+    padding: 4px 6px;
+    border: 1px #222 solid;
+    font-family: Consolas, sans-serif;
+    font-size: 13px;
+}
+.container p {
+    margin: 0;
+    padding: 3px 6px;
+}
+.container p:nth-child(odd) {
+    background: #333;
+}
+.container {
+    width: 100%;
+    height:150px;
+    overflow: hidden;
+    padding: 0;
+}
+.inp {
+    width: 100%;
+    box-sizing: border-box;
+}

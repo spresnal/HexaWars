@@ -2,7 +2,7 @@
 
 angular.module('myApp.home', ['ngRoute', 'panhandler'])
 
-.controller('HomeCtrl', ['$scope', 'ProfileService', 'GameboardService', 'UnitService', function ($scope, ProfileService, GameboardService, UnitService) {
+.controller('HomeCtrl', ['$scope', 'ProfileService', 'GameboardService', 'UnitService', function($scope, ProfileService, GameboardService, UnitService) {
     GameboardService.initBoard();
 
     //set board width and height for panning
@@ -29,9 +29,9 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
         tileSize: 32
     });
 
-    $scope.login = function (username, password) {
+    $scope.login = function(username, password) {
         //the function(result) passed in gets called when the http response comes back
-        ProfileService.login(username, password, function (result) {
+        ProfileService.login(username, password, function(result) {
             /*
              * Result contains
              * result.success = true/false
@@ -49,8 +49,8 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
         });
     };
 
-    $scope.register = function (username, password) {
-        ProfileService.register(username, password, function (result) {
+    $scope.register = function(username, password) {
+        ProfileService.register(username, password, function(result) {
             if (result.success) {
                 $scope.loggedIn = true;
                 $scope.view = 'game';
@@ -60,14 +60,14 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
         });
     };
 
-    $scope.createunit = function (type) {
+    $scope.createunit = function(type) {
         // Costs 2 gold, 2 steel
         if (type == 1 || type == 2 || type == 3) {
             if ($scope.gold >= 2 && $scope.stone >= 2) {
                 UnitService.createUnit(type);
 
-                setTimeout(function () {
-                    $scope.$apply(function () {
+                setTimeout(function() {
+                    $scope.$apply(function() {
                         $scope.gold = $scope.gold - 2;
                         $scope.stone = $scope.stone - 2;
                     }, 1000);
@@ -79,8 +79,8 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
             if ($scope.gold >= 5) {
                 UnitService.createUnit(type);
 
-                setTimeout(function () {
-                    $scope.$apply(function () {
+                setTimeout(function() {
+                    $scope.$apply(function() {
                         $scope.gold = $scope.gold - 5;
                     }, 1000);
                 });
@@ -91,8 +91,8 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
             if ($scope.gold >= 1 && $scope.wood >= 1) {
                 UnitService.createUnit(type);
 
-                setTimeout(function () {
-                    $scope.$apply(function () {
+                setTimeout(function() {
+                    $scope.$apply(function() {
                         $scope.gold = $scope.gold - 1;
                         $scope.wood = $scope.wood - 1;
                     }, 1000);
@@ -103,7 +103,7 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
 
     };
 
-    $scope.updateInfo = function (displayName) {
+    $scope.updateInfo = function(displayName) {
         $scope.empireColor = $('#empireColor').data('kendoColorPalette').value();
         //empireColor retrieved as hash (ex: #3f48cc) the '#' must be stripped before sending a post request
         ProfileService.updateInfo(displayName, $scope.empireColor.slice(1, empireColor.length), function(result) {
@@ -119,14 +119,37 @@ angular.module('myApp.home', ['ngRoute', 'panhandler'])
     };
 
     //Handle scrolling to end of board
-    var moveListener = function () {
+    var moveListener = function() {
         //console.log(document.getElementById('panhandler').childNodes[0].style.MozTransform);
         //console.log('moving');
     };
-    document.getElementById('panhandler').addEventListener('mousedown', function () {
+    document.getElementById('panhandler').addEventListener('mousedown', function() {
         document.getElementById('panhandler').addEventListener('mousemove', moveListener);
     });
-    document.getElementById('panhandler').addEventListener('mouseup', function () {
+    document.getElementById('panhandler').addEventListener('mouseup', function() {
         document.getElementById('panhandler').removeEventListener('mousemove', moveListener);
     });
+
+    $(document).ready(function() {
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('my response', function(msg) {
+            $('.container').append('<p>' + msg.data + '</p>');
+        });
+
+        socket.on('connect', function() {
+            socket.emit('my event', {
+                data: 'I\'m connected!'
+            });
+        });
+
+        $('form#emit').submit(function(event) {
+            socket.emit('my event', {
+                data: $scope.displayName + ': ' + $('#emit_data').val()
+            });
+            return false;
+        });
+    });
+
+
 }]);
